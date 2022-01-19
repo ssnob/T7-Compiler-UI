@@ -22,13 +22,16 @@ namespace DebugCompiler
         public string todelete = string.Empty;
         public string gm = string.Empty;
         public string gscpath = string.Empty;
+        public string gamemode = string.Empty;
+        public string game = string.Empty;
+        public string menu = string.Empty;
 
         public UI()
         {
             InitializeComponent();
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            resetGsc.Hide();
-            InjectButton.Hide();
+            //resetGsc.Hide();
+            //InjectButton.Hide();
 //#if DEBUG
 //            InjectButton.Show();
 //            resetGsc.Show();
@@ -73,18 +76,18 @@ namespace DebugCompiler
                 gm = System.IO.File.ReadAllText(injectpath + "\\gsc.conf");
 
 
-                GmBox.Show();
+                //GmBox.Show();
 
-                if (gm.Contains("zm"))
-                {
-                    GmBox.Text = "Zombies";
-                }
-                if (gm.Contains("mp"))
-                {
-                    GmBox.Text = "Multiplayer";
-                }
+                //if (gm.Contains("zm"))
+                //{
+                //    GmBox.Text = "Zombies";
+                //}
+                //if (gm.Contains("mp"))
+                //{
+                //    GmBox.Text = "Multiplayer";
+                //}
 
-                InjectButton.Show();
+                //InjectButton.Show();
 
                 CurrentMenu.Text = "Selected File: " + ZIPSelector.SafeFileName.Replace(".zip", "").ToString();
             }
@@ -117,7 +120,7 @@ namespace DebugCompiler
             File.Delete("compiled.gscc");
             File.Delete("compiled.omap");
 
-            resetGsc.Show();
+            //resetGsc.Show();
 
             return;
         }
@@ -138,19 +141,6 @@ namespace DebugCompiler
             }
         }
 
-        private void GmBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (GmBox.Text == "Zombies")
-            {
-                File.WriteAllText(gm, String.Empty);
-                File.WriteAllText("gsc.conf", "symbols=serious,zm");
-            }
-            if (GmBox.Text == "Multiplayer")
-            {
-                File.WriteAllText(gm, String.Empty);
-                File.WriteAllText("gsc.conf", "symbols=serious,mp");
-            }
-        }
 
         private void resetGsc_Click(object sender, EventArgs e)
         {
@@ -162,7 +152,7 @@ namespace DebugCompiler
 
         public void RESETGSCSHOW()
         {
-            resetGsc.Show();
+           // resetGsc.Show();
         }
 
         // c
@@ -212,5 +202,176 @@ namespace DebugCompiler
                         System.Diagnostics.Process.Start("https://ibb.co/RT12Qs5");
                     }
             }
-    }
-}
+
+        private void FileOpen_Click(object sender, EventArgs e)
+        {
+            // filedialog
+            ZIPSelector.Filter = "Zip files (*.zip)|";
+            System.Windows.Forms.DialogResult result = ZIPSelector.ShowDialog();
+
+            if (!ZIPSelector.FileName.Contains(".zip"))
+            {
+                //MessageBox.Show("Please Select A Zip File!");
+            }
+            else if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                // get our current directory
+                string directory = Environment.CurrentDirectory;
+                gscpath = directory + "\\temp\\gsc\\";
+                // zip stuff
+                if (Directory.Exists(gscpath))
+                {
+                    // pass
+                }
+                else
+                {
+                    DirectoryInfo di = Directory.CreateDirectory(gscpath);
+                }
+
+            retry:
+                try { System.IO.Compression.ZipFile.ExtractToDirectory(ZIPSelector.FileName, gscpath); menu = ZIPSelector.FileName; }
+                catch { Directory.Delete(gscpath, true); goto retry; }
+
+                Logging.Add("Loaded Zip");
+                menu = ZIPSelector.FileName;
+                injectpath = gscpath + ZIPSelector.SafeFileName.Replace(".zip", "").ToString();
+                todelete = injectpath + "\\.vscode";
+                Directory.Delete(todelete, true);
+
+                gm = System.IO.File.ReadAllText(injectpath + "\\gsc.conf");
+
+
+                //GmBox.Show();
+
+                if (gm.Contains("zm"))
+                {
+                    Zombies.BackColor = Color.FromArgb(28, 28, 28);
+                    MultiPlayer.BackColor = Color.Transparent;
+                    gamemode = "ZM";
+                }
+                if (gm.Contains("mp"))
+                {
+                    MultiPlayer.BackColor = Color.FromArgb(28, 28, 28);
+                    Zombies.BackColor = Color.Transparent;
+                    gamemode = "MP";
+                }
+                else if (!gm.Contains("mp") || !gm.Contains("zm"))
+                {
+                    gamemode = "ZM";
+                }
+
+                //InjectButton.Show();
+
+                CurrentMenu.Text = "Menu: " + ZIPSelector.SafeFileName.Replace(".zip", "").ToString();
+                callzomb();
+            }
+        }
+
+        private void Compile_Click(object sender, EventArgs e)
+        {
+            Root root = new Root();
+            ErrorForm ef = new ErrorForm();
+
+            
+            string sourceDirectory = injectpath + "\\scripts";
+            string destinationDirectory = Environment.CurrentDirectory + "\\scripts";
+            again:
+            try
+            {
+                if (Directory.Exists(destinationDirectory))
+                {
+                    Directory.Delete(destinationDirectory, true);
+                }
+
+                CopyDirectory(sourceDirectory, destinationDirectory);
+
+                
+                root.cmd_Compile(new string[] { "scripts", "pc", null, "false", "--build" });
+
+                Directory.Delete(sourceDirectory, true);
+                File.Delete("compiled.gsc");
+                File.Delete("compiled.gscc");
+                File.Delete("compiled.omap");
+            }
+            catch { System.IO.Compression.ZipFile.ExtractToDirectory(menu, gscpath); goto again; }
+            
+
+            return;
+        }
+
+        private void HelpBut_Click(object sender, EventArgs e)
+        {
+            ErrorForm errorform = new ErrorForm();
+            errorform.setTitle("Help");
+            errorform.openme("Zip File Must be structured like this\n------------------\nZIP\nMenu Folder\nscripts\ngsc.conf\n------------------\nExample in the link below.");
+            errorform.setlinks("https://i.ibb.co/QvZ9YT5/Example.png");
+        }
+
+        private void CurrentMenu_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void Zombies_Click(object sender, EventArgs e)
+        {
+            ErrorForm errorform = new ErrorForm();
+            try
+            {
+                callzomb();
+            }
+            catch
+            {
+                errorform.setTitle("Error");
+                errorform.openme("Please load a menu first.\n");
+                errorform.hidelink();
+            }
+        }
+        public void callzomb()
+        {
+            File.WriteAllText(gm, String.Empty);
+            File.WriteAllText("gsc.conf", "symbols=serious,zm");
+            Zombies.BackColor = Color.FromArgb(28, 28, 28);
+            MultiPlayer.BackColor = Color.Transparent;
+            gamemode = "ZM";
+            CurrentMenu.Text = "Menu: " + ZIPSelector.SafeFileName.Replace(".zip", "").ToString();
+        }
+        private void MultiPlayer_Click(object sender, EventArgs e)
+        {
+            ErrorForm errorform = new ErrorForm();
+            try
+            {
+                File.WriteAllText(gm, String.Empty);
+                File.WriteAllText("gsc.conf", "symbols=serious,mp");
+                MultiPlayer.BackColor = Color.FromArgb(28, 28, 28);
+                Zombies.BackColor = Color.Transparent;
+                gamemode = "MP";
+                CurrentMenu.Text = "Menu: " + ZIPSelector.SafeFileName.Replace(".zip", "").ToString();
+            }
+            catch
+            {
+                errorform.setTitle("Error");
+                errorform.openme("Please load a menu first.\n");
+                errorform.hidelink();
+            }
+        }
+
+        private void Reset_Click(object sender, EventArgs e)
+        {
+             Root root = new Root();
+             root.NoExcept(root.FreeT7Script);
+            
+        }
+
+        private void BO3_Click(object sender, EventArgs e)
+        {
+
+        }
+    }       
+
+}           
+
+            
+
+            
+
+            

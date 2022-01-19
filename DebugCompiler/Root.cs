@@ -34,7 +34,7 @@ namespace DebugCompiler
         private bool ClearHistory = false;
         private static string UpdatesURL = "https://gsc.dev/t7c_version";
         private static string UpdaterURL = "https://gsc.dev/t7c_updater";
-
+        public string cpath = string.Empty;
         [STAThread]
         static void Main(string[] args)
         {
@@ -599,7 +599,7 @@ namespace DebugCompiler
                 return Error(code.Error);
             }
 
-            string cpath = $"compiled.{(code.RequiresGSI ? "gsic" : "gscc")}";
+            cpath = $"compiled.{(code.RequiresGSI ? "gsic" : "gscc")}";
             File.WriteAllBytes(cpath, code.CompiledScript);
             string hpath = "hashes.txt";
             StringBuilder hashes = new StringBuilder();
@@ -618,13 +618,10 @@ namespace DebugCompiler
                 }
                 File.WriteAllBytes("compiled.omap", opsRaw);
             }
-     
-            Success(cpath);
-            //Success("Script compiled. Press I to inject or anything else to continue");
 
-            //if (args.Length < 5 && Console.ReadKey(true).Key != ConsoleKey.I)
-            //    return 0;
+            //Success(cpath);
 
+            ErrorForm ef = new ErrorForm();
             byte[] data = code.CompiledScript;
 
             PointerEx injresult = InjectScript(replaceScript, code.CompiledScript, game);
@@ -633,13 +630,19 @@ namespace DebugCompiler
             //Console.WriteLine($"\t[{replaceScript}]: {(!injresult ? "Injected" : $"Failed to Inject ({injresult:X})")}\n");
             if (injresult)
             {
-                MessageBox.Show("Injection Failed.", "Error:");
+                //MessageBox.Show("Injection Failed.", "Error:");
+                
+                ef.setTitle("Error");
+                ef.openme($"Failed to Injecte!\nReason:({injresult:X})");
+                ef.hidelink();
             }
             if (!injresult)
             {
                 UI ui = new UI();
                 ui.RESETGSCSHOW();
-                MessageBox.Show("Injected!", "Success");
+                ef.setTitle("Success");
+                ef.openme($"Successfully Injected!\n\t[{replaceScript}]:");
+                ef.hidelink();
             }
 
             return 0;
@@ -1021,10 +1024,10 @@ namespace DebugCompiler
 
         public void FreeT7Script()
         {
-            if (!llpModifiedSPTStruct) return;
+            //if (!llpModifiedSPTStruct) return;
             ProcessEx bo3 = "blackops3";
-            if (bo3 == null) return;
-            if (bo3.BaseProcess.Id != OriginalPID) return;
+            //if (bo3 == null) return;
+            //if (bo3.BaseProcess.Id != OriginalPID) return;
             bo3.OpenHandle();
 
             // free allocated space
