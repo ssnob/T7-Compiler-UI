@@ -4,6 +4,14 @@ Ui for serious' compiler
 
 # Info
 Usage 
+
+*Regular Usage*
+Select Folder->Locate the folder youd like
+Insure the folder contains a "scripts" folder
+Select your gamemode
+Hit compile/inject
+
+*ZIPS*
 * Zip files must be structured like this, or they will **not** work.
 * Zip->FolderName->scripts folder
 * Zip->FolderName->gsc.conf
