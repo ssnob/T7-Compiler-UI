@@ -11,7 +11,7 @@ Usage
 
 # More Info?
 
-![Ui](assets/gui.png)
+![Ui](assets/Gui.png)
 
 Compiler by https://github.com/shiversoftdev
 Compiler Link https://github.com/shiversoftdev/t7-compiler
