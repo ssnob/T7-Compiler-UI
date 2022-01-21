@@ -45,6 +45,8 @@ namespace DebugCompiler
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.Folder = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -194,11 +196,12 @@ namespace DebugCompiler
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(8, 379);
+            this.label3.Location = new System.Drawing.Point(16, 378);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 16);
+            this.label3.Size = new System.Drawing.Size(68, 16);
             this.label3.TabIndex = 24;
-            this.label3.Text = "Select Folder";
+            this.label3.Text = "Select Zip";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -230,12 +233,43 @@ namespace DebugCompiler
             this.pictureBox2.TabIndex = 26;
             this.pictureBox2.TabStop = false;
             // 
+            // Folder
+            // 
+            this.Folder.BackColor = System.Drawing.Color.Transparent;
+            this.Folder.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Folder.BackgroundImage")));
+            this.Folder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Folder.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Folder.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
+            this.Folder.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.Folder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.Folder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Folder.Location = new System.Drawing.Point(0, 224);
+            this.Folder.Name = "Folder";
+            this.Folder.Size = new System.Drawing.Size(99, 87);
+            this.Folder.TabIndex = 27;
+            this.Folder.UseVisualStyleBackColor = false;
+            this.Folder.Click += new System.EventHandler(this.Folder_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(10, 295);
+            this.label5.Name = "label5";
+            this.label5.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label5.Size = new System.Drawing.Size(88, 16);
+            this.label5.TabIndex = 28;
+            this.label5.Text = "Select Folder";
+            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
             this.ClientSize = new System.Drawing.Size(1032, 577);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.Folder);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label4);
@@ -278,5 +312,7 @@ namespace DebugCompiler
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button Folder;
+        private System.Windows.Forms.Label label5;
     }
 }
