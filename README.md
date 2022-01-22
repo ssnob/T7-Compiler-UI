@@ -1,6 +1,10 @@
 # T7-Compiler-UI
 Ui for serious' compiler
 
+# Requirements
+This project requires you to have .net framework 4.8 installed
+Download: https://go.microsoft.com/fwlink/?LinkId=2085155 
+
 
 # Info
 Usage 
