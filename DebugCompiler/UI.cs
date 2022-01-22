@@ -285,6 +285,14 @@ namespace DebugCompiler
                     File.WriteAllText(gm, String.Empty);
                     File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,mp");
                 }
+                string specialfolder;
+                if (selectedFolder.StartsWith("Documents") || selectedFolder.StartsWith("Videos") || selectedFolder.StartsWith("Music") || selectedFolder.StartsWith("Camera") || selectedFolder.StartsWith("Pictures") || selectedFolder.StartsWith("Music"))
+                {
+                    ef.setTitle("Error");
+                    ef.openme("Invalid Filepath detected, move your menu into\nanother folder");
+                    return;
+                }
+
                 File.WriteAllText(selectedFolder + "\\compile.bat", "cd " + selectedFolder + "\nc:/t7compiler/debugcompiler --build");
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.FileName = selectedFolder + "\\compile.bat";
@@ -401,8 +409,12 @@ namespace DebugCompiler
         {
             using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
             {
+                
                 System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+                if (result != System.Windows.Forms.DialogResult.OK)
+                {
 
+                }
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     selectedFolder = dialog.SelectedPath;
