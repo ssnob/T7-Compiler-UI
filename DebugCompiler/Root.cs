@@ -41,35 +41,7 @@ namespace DebugCompiler
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new UI());
-            //try
-            //{
-            //    string lv = GetEmbeddedVersion();  
-            //    ulong local_version = ParseVersion(lv);
-            //    ulong remote_version = 0;
-            //    using (WebClient client = new WebClient())
-            //    {
-            //        string downloadString = client.DownloadString(UpdatesURL);
-            //        remote_version = ParseVersion(downloadString.ToLower().Trim());
-            //    }
-            //    if(local_version < remote_version)
-            //    {
-
-            //        string filename = Path.Combine(Path.GetTempPath(), "t7c_installer.exe");
-            //        if(File.Exists(filename)) File.Delete(filename);
-            //        using(WebClient client = new WebClient())
-            //        {
-            //            client.DownloadFile(UpdaterURL, filename);
-            //        }
-            //        Process.Start(filename, "--install_silent");
-            //        Environment.Exit(0);
-            //    }
-            //}
-            //catch
-            //{
-            //    // we dont care if we cant update tbf
-            //    Console.WriteLine($"Error updating client... ignoring update");
-            //}
-
+           
 
             Root root = new Root();
             if (args.Length > 0 && args[0] == "--build")
@@ -79,6 +51,49 @@ namespace DebugCompiler
             }
             
             
+        }
+
+        public void update()
+        {
+            ErrorForm ef = new ErrorForm();
+            try
+            {
+                System.Net.WebClient wc = new System.Net.WebClient();
+                string version = wc.DownloadString(UpdatesURL);
+                string lv = GetEmbeddedVersion();
+                ulong local_version = ParseVersion(lv);
+                ulong remote_version = 0;
+                using (WebClient client = new WebClient())
+                {
+                    string downloadString = client.DownloadString(UpdatesURL);
+                    remote_version = ParseVersion(downloadString.ToLower().Trim());
+                }
+                string filename = Path.Combine(Path.GetTempPath(), "t7c_installer.exe");
+                if (File.Exists(filename)) File.Delete(filename);
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile(UpdaterURL, filename);
+                }
+
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.FileName = filename;
+                startInfo.UseShellExecute = false;
+                startInfo.RedirectStandardInput = true;
+                startInfo.RedirectStandardOutput = true;
+                startInfo.CreateNoWindow = true;
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                Process proc = Process.Start(filename, "--install_silent");
+
+                // prob a better way to update lmao its whatever tho
+
+                
+            }
+            catch
+            {
+                ef.setTitle("Error updating");
+                ef.openme("Issue: failed to update or already on\nlatest version\n");
+                ef.hidelink();
+            }
         }
 
         static ulong ParseVersion(string vstr)

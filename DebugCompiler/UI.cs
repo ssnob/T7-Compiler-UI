@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
@@ -17,6 +18,7 @@ namespace DebugCompiler
     {
         List<string> Logging = new List<string>();
         DateTime dTIME = DateTime.Now;
+        public bool selected = false;
         public string injectpath = string.Empty;
         private string selectedFolder = string.Empty;
         public string todelete = string.Empty;
@@ -25,6 +27,7 @@ namespace DebugCompiler
         public string gamemode = string.Empty;
         public string game = string.Empty;
         public string menu = string.Empty;
+        public string bat = "C:\\t7compiler\\compile.bat";
 
         public string foldersel = string.Empty;
 
@@ -34,12 +37,7 @@ namespace DebugCompiler
         {
             InitializeComponent();
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            //resetGsc.Hide();
-            //InjectButton.Hide();
-//#if DEBUG
-//            InjectButton.Show();
-//            resetGsc.Show();
-//#endif
+
         }
 
         private void LoadZip_Click(object sender, EventArgs e)
@@ -113,7 +111,7 @@ namespace DebugCompiler
 
         public void RESETGSCSHOW()
         {
-           // resetGsc.Show();
+            // resetGsc.Show();
         }
 
         // c
@@ -159,10 +157,10 @@ namespace DebugCompiler
                 "gsc.conf\n" +
                 "------------------\n" + "Hit Ok to open an example, if you understood hit Cancel", "Help", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk
             ) == DialogResult.OK)
-                    {
-                        System.Diagnostics.Process.Start("https://ibb.co/RT12Qs5");
-                    }
+            {
+                System.Diagnostics.Process.Start("https://ibb.co/RT12Qs5");
             }
+        }
 
         private void FileOpen_Click(object sender, EventArgs e)
         {
@@ -227,6 +225,7 @@ namespace DebugCompiler
 
                 //InjectButton.Show();
                 folderselect = false;
+                selected = true;
                 CurrentMenu.Text = "Menu: " + ZIPSelector.SafeFileName.Replace(".zip", "").ToString();
                 callzomb();
             }
@@ -234,26 +233,77 @@ namespace DebugCompiler
 
         private void Compile_Click(object sender, EventArgs e)
         {
-            Root root = new Root();
             ErrorForm ef = new ErrorForm();
-
+            if (!selected)
+            {
+                ef.setTitle("Error");
+                ef.openme($"Please load a menu before injecting.\n");
+                ef.hidelink();
+                return;
+            }
             if (!folderselect)
             {
-                string sourceDirectory = injectpath + "\\scripts";
-                string destinationDirectory = Environment.CurrentDirectory + "\\scripts";
-            again:
-                try
+                if (gamemode == "ZM")
                 {
-                    root.cmd_Compile(new string[] { sourceDirectory, "pc", null, "false", "--build" });
+                    File.WriteAllText(gm, String.Empty);
+                    File.WriteAllText(injectpath + "\\gsc.conf", "symbols=serious,zm");
                 }
-                catch { System.IO.Compression.ZipFile.ExtractToDirectory(menu, gscpath); goto again; }
+                if (gamemode == "MP")
+                {
+                    File.WriteAllText(gm, String.Empty);
+                    File.WriteAllText(injectpath + "\\gsc.conf", "symbols=serious,mp");
+                }
+                File.WriteAllText(injectpath + "\\compile.bat", "cd " + injectpath + "\nc:/t7compiler/debugcompiler --build");
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.FileName = injectpath + "\\compile.bat";
+                startInfo.UseShellExecute = true;
+                startInfo.RedirectStandardOutput = false;
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                //Start the process
+                Process proc = Process.Start(startInfo);
+
+                new Task(() => {
+                    System.Threading.Thread.Sleep(15000);
+                    Process[] PROC = Process.GetProcessesByName("debugcompiler");
+                    PROC[0].Kill();
+                }).Start(); // kill the proccess in a new thread will prevent ui lockup and should elimate injection issues if the user is on an OK pc
+
+                ef.setTitle("Success");
+                ef.openme($"Successfully Injected!\n"); 
+                ef.hidelink();
+
             }
             if (folderselect)
             {
-                string sourceDirectory = selectedFolder + "\\scripts";
-                root.cmd_Compile(new string[] { sourceDirectory, "pc", null, "false", "--build" });
+                if (gamemode == "ZM")
+                {
+                    File.WriteAllText(gm, String.Empty);
+                    File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,zm");
+                }
+                if (gamemode == "MP")
+                {
+                    File.WriteAllText(gm, String.Empty);
+                    File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,mp");
+                }
+                File.WriteAllText(selectedFolder + "\\compile.bat", "cd " + selectedFolder + "\nc:/t7compiler/debugcompiler --build");
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.FileName = selectedFolder + "\\compile.bat";
+                startInfo.UseShellExecute = true;
+                startInfo.RedirectStandardOutput = false;
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                //Start the process
+                Process proc = Process.Start(startInfo);
+
+                new Task(() => {
+                    System.Threading.Thread.Sleep(15000);
+                    Process[] PROC = Process.GetProcessesByName("debugcompiler");
+                    PROC[0].Kill();
+                }).Start(); // kill the proccess in a new thread will prevent ui lockup and should elimate injection issues if the user is on an OK pc
+                   
+                ef.setTitle("Success");
+                ef.openme($"Successfully Injected!\n"); 
+                ef.hidelink();
             }
-            return;
         }
 
         private void HelpBut_Click(object sender, EventArgs e)
@@ -296,7 +346,7 @@ namespace DebugCompiler
             else
             {
                 File.WriteAllText(gm, String.Empty);
-                File.WriteAllText("gsc.conf", "symbols=serious,zm");
+                File.WriteAllText(injectpath + "\\gsc.conf", "symbols=serious,zm");
                 Zombies.BackColor = Color.FromArgb(28, 28, 28);
                 MultiPlayer.BackColor = Color.Transparent;
                 gamemode = "ZM";
@@ -319,13 +369,13 @@ namespace DebugCompiler
                 else
                 {
                     File.WriteAllText(gm, String.Empty);
-                    File.WriteAllText("gsc.conf", "symbols=serious,mp");
+                    File.WriteAllText(injectpath + "\\gsc.conf", "symbols=serious,mp");
                     MultiPlayer.BackColor = Color.FromArgb(28, 28, 28);
                     Zombies.BackColor = Color.Transparent;
                     gamemode = "MP";
                     CurrentMenu.Text = "Menu: " + ZIPSelector.SafeFileName.Replace(".zip", "").ToString();
                 }
-                
+
             }
             catch
             {
@@ -337,9 +387,9 @@ namespace DebugCompiler
 
         private void Reset_Click(object sender, EventArgs e)
         {
-             Root root = new Root();
-             root.NoExcept(root.FreeT7Script);
-            
+            Root root = new Root();
+            root.NoExcept(root.FreeT7Script);
+
         }
 
         private void BO3_Click(object sender, EventArgs e)
@@ -380,6 +430,7 @@ namespace DebugCompiler
                     gamemode = "ZM";
                 }
                 folderselect = true;
+                selected = true;
                 CurrentMenu.Text = "Menu: " + Path.GetFileName(selectedFolder);
                 callzomb();
             }
@@ -389,9 +440,55 @@ namespace DebugCompiler
         {
 
         }
-    }       
 
-}           
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckUpdate_Click(object sender, EventArgs e)
+        {
+            Root root = new Root();
+            ErrorForm ef = new ErrorForm();
+            string Ver = "https://gsc.dev/t7c_version";  // current version
+            string Update = "https://gsc.dev/t7c_updater";  // to update
+            System.Net.WebClient wc = new System.Net.WebClient();
+            string version = wc.DownloadString(Ver);
+            #region future
+            /*
+
+
+            System.Net.WebClient wc = new System.Net.WebClient();
+            string version = wc.DownloadString(Ver);
+
+            // start a process
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = "c:\\t7compiler\\debugcompiler.exe";
+            startInfo.UseShellExecute = true;
+            startInfo.RedirectStandardOutput = false;
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            Process proc = Process.Start(startInfo);
+
+            // tbh have not been able to test this because I don't have any older versions atm
+            // this will just run it in the background, the compiler checks for updates when it runs so hopefully it will just update itself like this
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+            System.Threading.Thread.Sleep(7800); // cursors for the cool effect!
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+
+            // kill the ghost process
+
+            Process[] PROC = Process.GetProcessesByName("debugcompiler");
+            PROC[0].Kill();
+
+            // set our dialog
+            */
+            #endregion
+
+            root.update();
+        }
+    }
+}
+           
 
             
 

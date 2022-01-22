@@ -44,11 +44,11 @@ namespace DebugCompiler
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.Folder = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.CheckUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // ZIPSelector
@@ -179,6 +179,7 @@ namespace DebugCompiler
             this.label1.Size = new System.Drawing.Size(93, 16);
             this.label1.TabIndex = 22;
             this.label1.Text = "Compile/Inject";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -222,17 +223,6 @@ namespace DebugCompiler
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
-            this.pictureBox2.ErrorImage = null;
-            this.pictureBox2.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.InitialImage")));
-            this.pictureBox2.Location = new System.Drawing.Point(936, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(99, 97);
-            this.pictureBox2.TabIndex = 26;
-            this.pictureBox2.TabStop = false;
-            // 
             // Folder
             // 
             this.Folder.BackColor = System.Drawing.Color.Transparent;
@@ -262,15 +252,45 @@ namespace DebugCompiler
             this.label5.TabIndex = 28;
             this.label5.Text = "Select Folder";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(910, 3);
+            this.label6.Name = "label6";
+            this.label6.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label6.Size = new System.Drawing.Size(124, 16);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "Check For Updates";
+            // 
+            // CheckUpdate
+            // 
+            this.CheckUpdate.BackColor = System.Drawing.Color.Transparent;
+            this.CheckUpdate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CheckUpdate.BackgroundImage")));
+            this.CheckUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CheckUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CheckUpdate.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
+            this.CheckUpdate.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.CheckUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.CheckUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CheckUpdate.Location = new System.Drawing.Point(921, 22);
+            this.CheckUpdate.Name = "CheckUpdate";
+            this.CheckUpdate.Size = new System.Drawing.Size(99, 87);
+            this.CheckUpdate.TabIndex = 30;
+            this.CheckUpdate.UseVisualStyleBackColor = false;
+            this.CheckUpdate.Click += new System.EventHandler(this.CheckUpdate_Click);
+            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
             this.ClientSize = new System.Drawing.Size(1032, 577);
+            this.Controls.Add(this.CheckUpdate);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.Folder);
-            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -289,7 +309,6 @@ namespace DebugCompiler
             this.Text = "UI";
             this.Load += new System.EventHandler(this.UI_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,8 +330,9 @@ namespace DebugCompiler
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button Folder;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button CheckUpdate;
     }
 }
