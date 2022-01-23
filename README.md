@@ -23,7 +23,7 @@ Hit compile/inject
 
 # More Info?
 
-![Ui](assets/Gui.png)
+![Ui](assets/Ui.png)
 
 Compiler by https://github.com/shiversoftdev 
 
