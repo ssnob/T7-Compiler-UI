@@ -36,8 +36,6 @@ namespace Infinity_Loader_3._0 // lel
         public static string VersionUrl = "https://gsc.dev/t7c_version";
         public static string UpdaterURL = "https://gsc.dev/t7c_updater";
 
-        private string ImportFolderPath;
-        private string OutputFolderPath;
 
         public int gamemode;
 
@@ -85,12 +83,13 @@ namespace Infinity_Loader_3._0 // lel
             if (!menuselected)
             {
                 MainWin.Hide(); // throw up a reminder to select a folder
-                ErrorWin.Error("               Please select a folder before trying to compile!");
+                ErrorWin.Error("Please select a folder before trying to compile!");
             }
             else if (menuselected)
             {
                 if (gamemode == 0) { System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,mp"); realgm = "mp"; } // set our gamemodes
                 if (gamemode == 1) { System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,zm"); realgm = "zm"; }
+                if (gamemode == 2) { System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,sp"); realgm = "sp"; }
 
                 //                 this part gets a little confusing, what we're doing here is creating a batch file that will execute in the directory of our
                 //                 selected menu folder, it will call the debugcompiler with the --build argument, this will tell it to compile & inject everything within the "scripts" folder
@@ -232,6 +231,20 @@ namespace Infinity_Loader_3._0 // lel
                 ErrorWin.setTitle("Error");
                 ErrorWin.Error("There was a problem updating.");
             }
+        }
+
+        private void SetSpInt(object sender, RoutedEventArgs e)
+        {
+            ErrorWindow ErrorWin = new ErrorWindow();
+            if (!menuselected)
+            {
+                MainWin.Hide(); // throw up a reminder to select a folder
+                ErrorWin.Error("Please select a folder before trying to change gamemodes!");
+                return;
+            }
+            gamemode = 2;
+            System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,sp");
+            updateTextBox();
         }
     }
 }

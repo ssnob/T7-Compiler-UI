@@ -22,3 +22,27 @@ E:\Backup\Code\C#\Infinity Loader 3.0\Infinity Loader 3.0\obj\Debug\T7 Compiler 
 E:\Backup\Code\C#\Infinity Loader 3.0\Infinity Loader 3.0\obj\Debug\T7 Compiler UI.exe
 E:\Backup\Code\C#\Infinity Loader 3.0\Infinity Loader 3.0\obj\Debug\T7 Compiler UI.pdb
 E:\Backup\Code\C#\Infinity Loader 3.0\Infinity Loader 3.0\obj\Debug\T7 Compiler Ui.csproj.AssemblyReference.cache
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Debug\T7 Compiler UI.exe.config
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Debug\T7 Compiler UI.exe
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Debug\T7 Compiler UI.pdb
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Debug\MaterialDesignColors.dll
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Debug\MaterialDesignThemes.Wpf.dll
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Debug\MaterialDesignColors.pdb
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Debug\MaterialDesignThemes.Wpf.pdb
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Debug\MaterialDesignThemes.Wpf.xml
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Compiler Ui.csproj.AssemblyReference.cache
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\MainWindow.baml
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\ErrorWindow.g.cs
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\MainWindow.g.cs
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\App.g.cs
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Compiler UI_MarkupCompile.cache
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Compiler UI_MarkupCompile.lref
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\App.baml
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\ErrorWindow.baml
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Compiler UI.g.resources
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\Infinity_Loader_3._0.Properties.Resources.resources
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Compiler Ui.csproj.GenerateResource.cache
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Compiler Ui.csproj.CoreCompileInputs.cache
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Compiler Ui.csproj.CopyComplete
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Compiler UI.exe
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Compiler UI.pdb

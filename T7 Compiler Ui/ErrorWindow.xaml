@@ -12,7 +12,7 @@
             <RowDefinition Height="13*"/>
             <RowDefinition Height="129*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="Accept" Content="Accept" HorizontalAlignment="Left" Margin="171,344.8,0,0" VerticalAlignment="Top" Width="75" Click="AcceptPrompt" Grid.Row="1"/>
+        <Button x:Name="Accept" Content="Accept" HorizontalAlignment="Left" Margin="171,344.8,0,0" VerticalAlignment="Top" Width="75" Click="AcceptPrompt" Grid.Row="1" Background="#FF397CB4" BorderBrush="#FF397CB4"/>
 
         <materialDesign:Badged x:Name="Reason" Content="Error" HorizontalAlignment="Left" Margin="177,11,0,0" VerticalAlignment="Top" FontSize="20" RenderTransformOrigin="1.098,0.6"/>
         <materialDesign:Badged x:Name="ErrorText" Content="Context" HorizontalAlignment="Left" Margin="28,3.8,0,0" VerticalAlignment="Top" Height="336" Width="346" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" Grid.Row="1"/>
