@@ -1,6 +1,0 @@
-Major-
-* Make Gui a lot cleaner
-* Add game selection
-* Add campaign
-Minor-
-* Fix some minor bugs
