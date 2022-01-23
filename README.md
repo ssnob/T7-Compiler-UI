@@ -17,7 +17,7 @@ Hit compile/inject
 
 # More Info?
 
-![Ui](T7 Compiler Ui/assets/Ui.png)
+![Ui](Ui.png)
 
 Compiler by https://github.com/shiversoftdev 
 
