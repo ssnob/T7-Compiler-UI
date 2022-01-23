@@ -6,17 +6,18 @@
         xmlns:local="clr-namespace:Infinity_Loader_3._0"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="Infinity_Loader_3._0.ErrorWindow"
         mc:Ignorable="d"
-        Title="ErrorWindow" Height="435.6" Width="413.6" Background="White" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Title="ErrorWindow" Height="435.6" Width="413.6" Background="Black" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,2,2">
         <Grid.RowDefinitions>
-            <RowDefinition Height="13*"/>
-            <RowDefinition Height="129*"/>
+            <RowDefinition Height="39*"/>
+            <RowDefinition Height="387*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button x:Name="Accept" Content="Accept" HorizontalAlignment="Left" Margin="171,344.8,0,0" VerticalAlignment="Top" Width="75" Click="AcceptPrompt" Grid.Row="1" Background="#FF397CB4" BorderBrush="#FF397CB4"/>
+        <Button x:Name="Accept" Content="Accept" HorizontalAlignment="Left" Margin="171,345,0,0" VerticalAlignment="Top" Width="75" Click="AcceptPrompt" Grid.Row="1" Background="#FF397CB4" BorderBrush="#FF397CB4"/>
 
-        <materialDesign:Badged x:Name="Reason" Content="Error" HorizontalAlignment="Left" Margin="177,11,0,0" VerticalAlignment="Top" FontSize="20" RenderTransformOrigin="1.098,0.6"/>
-        <materialDesign:Badged x:Name="ErrorText" Content="Context" HorizontalAlignment="Left" Margin="28,3.8,0,0" VerticalAlignment="Top" Height="336" Width="346" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" Grid.Row="1"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="336" Margin="25,4,0,0" VerticalAlignment="Top" Width="349" Grid.Row="1"/>
+        <materialDesign:Badged x:Name="Reason" Content="Error" HorizontalAlignment="Left" Margin="177,11,0,0" VerticalAlignment="Top" FontSize="20" RenderTransformOrigin="1.098,0.6" Foreground="White"/>
+        <materialDesign:Badged x:Name="ErrorText" Content="Context" HorizontalAlignment="Left" Margin="28,4,0,0" VerticalAlignment="Top" Height="336" Width="346" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" Grid.Row="1" Foreground="White"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="336" Margin="25,1,0,0" VerticalAlignment="Top" Width="349" Grid.Row="1"/>
 
     </Grid>
 </Window>

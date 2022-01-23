@@ -12,7 +12,7 @@
      TextElement.FontSize="13"
      TextOptions.TextFormattingMode="Ideal"
      TextOptions.TextRenderingMode="Auto"
-     Background="{DynamicResource MaterialDesignPaper}"
+     Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}"
      FontFamily="{DynamicResource MaterialDesignFont}" ResizeMode="CanMinimize" Uid="Ui" WindowStartupLocation="CenterScreen" Height="534" Width="1085" >
     <Grid Margin="0,0,0,-19">
         <Grid.RowDefinitions>
@@ -20,23 +20,18 @@
             <RowDefinition Height="321*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="107*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="643*"/>
+            <ColumnDefinition Width="426*"/>
+            <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
         <Button Content="Select Folder" HorizontalAlignment="Left" Margin="10,10,0,0"  Width="124" VerticalAlignment="Top" Click="SelectFolder" ClickMode="Press" Background="#FF397CB4" BorderBrush="#FF397CB4"/>
-        <Button Content="Compile" HorizontalAlignment="Left" Margin="10,255.448,0,0"  Width="86" VerticalAlignment="Top" Click="Compile" RenderTransformOrigin="0.5,0.5" ClickMode="Press" Grid.Row="1" Background="#FF397CB4" BorderBrush="#FF397CB4"/>
-        <TextBox x:Name="GmTb" HorizontalAlignment="Left" Height="23" Margin="10,227.448,0,0" TextWrapping="Wrap" Text="symbols:" VerticalAlignment="Top" Width="264" Grid.Row="1" CaretBrush="#FF397CB4"/>
-        <materialDesign:Chip x:Name="MutliPlayer" Content="MP
-" HorizontalAlignment="Left" Margin="53,194,0,0" VerticalAlignment="Top" Click="SetMpInt" ClickMode="Press" Grid.Row="1"/>
-        <materialDesign:Chip x:Name="Zombies" Content="ZM" HorizontalAlignment="Left" Margin="103,194,0,0" VerticalAlignment="Top" Click="SetZmInt" ClickMode="Press" Grid.Row="1"/>
-        <Button Content="Check For Updates" HorizontalAlignment="Left" Margin="900,255.448,0,0"  Width="159" VerticalAlignment="Top" Click="UpdateClient" RenderTransformOrigin="0.5,0.5" ClickMode="Press" Grid.Row="1" Background="#FF397CB4" BorderBrush="#FF397CB4"/>
-        <Label x:Name="Version" Content="Latest Version: " HorizontalAlignment="Left" Margin="756,260.448,0,0" VerticalAlignment="Top" Grid.Row="1"/>
-        <Button x:Name="DarkLight" HorizontalAlignment="Left" Margin="1033,10,0,0" VerticalAlignment="Top" Width="36" ClickMode="Press" BorderBrush="#00673AB7">
-            <Button.Background>
-                <ImageBrush ImageSource="Assets/LightMode.png" Stretch="Uniform"/>
-            </Button.Background>
-        </Button>
-        <materialDesign:Chip x:Name="SinglePlayer" Content="SP " HorizontalAlignment="Left" Margin="8,194,0,0" VerticalAlignment="Top" Click="SetSpInt" ClickMode="Press" RenderTransformOrigin="0.138,0.528" Grid.Row="1"/>
+        <Button Content="Compile" HorizontalAlignment="Left" Margin="10,255,0,0"  Width="86" VerticalAlignment="Top" Click="Compile" RenderTransformOrigin="0.5,0.5" ClickMode="Press" Grid.Row="1" Background="#FF397CB4" BorderBrush="#FF397CB4"/>
+        <TextBox x:Name="GmTb" HorizontalAlignment="Left" Height="23" Margin="10,227,0,0" TextWrapping="Wrap" Text="symbols:" VerticalAlignment="Top" Width="264" Grid.Row="1" CaretBrush="#FF397CB4" Foreground="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" BorderBrush="#89FFFFFF"/>
+        <materialDesign:Chip x:Name="MutliPlayer" Content="MP" HorizontalAlignment="Left" Margin="51,194,0,0" VerticalAlignment="Top" Click="SetMpInt" ClickMode="Press" Grid.Row="1" Background="#12FFFFFF" Foreground="#DDFFFFFF"/>
+        <materialDesign:Chip x:Name="Zombies" Content="ZM" HorizontalAlignment="Left" Margin="99,194,0,0" VerticalAlignment="Top" Click="SetZmInt" ClickMode="Press" Grid.Row="1" Background="#12FFFFFF" Foreground="#DDFFFFFF"/>
+        <Button Content="Check For Updates" HorizontalAlignment="Left" Margin="257.155,255,0,0"  Width="159" VerticalAlignment="Top" Click="UpdateClient" RenderTransformOrigin="0.5,0.5" ClickMode="Press" Grid.Row="1" Background="#FF397CB4" BorderBrush="#FF397CB4" Grid.Column="1"/>
+        <Label x:Name="Version" Content="Latest Version: " HorizontalAlignment="Left" Margin="113.155,260,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Foreground="#DDFFFFFF"/>
+        <materialDesign:Chip x:Name="SinglePlayer" Content="SP" HorizontalAlignment="Left" Margin="8,194,0,0" VerticalAlignment="Top" Click="SetSpInt" ClickMode="Press" RenderTransformOrigin="0.138,0.528" Grid.Row="1" Foreground="#DDFFFFFF" Background="#12FFFFFF"/>
 
     </Grid>
 </Window>

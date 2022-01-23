@@ -246,5 +246,6 @@ namespace Infinity_Loader_3._0 // lel
             System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,sp");
             updateTextBox();
         }
+
     }
 }
