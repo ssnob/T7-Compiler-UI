@@ -58,7 +58,7 @@ namespace Infinity_Loader_3._0 {
             
             #line default
             #line hidden
-            System.Uri resourceLocater = new System.Uri("/Infinity Loader 3.0;component/app.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/T7 Compiler UI;component/app.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\App.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

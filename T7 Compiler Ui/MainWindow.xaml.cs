@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Infinity_Loader_3._0 // lel
 {
@@ -36,16 +37,40 @@ namespace Infinity_Loader_3._0 // lel
         public static string VersionUrl = "https://gsc.dev/t7c_version";
         public static string UpdaterURL = "https://gsc.dev/t7c_updater";
 
+        public string game = string.Empty;
 
         public int gamemode;
 
+        string version;
         public MainWindow()
         {
             InitializeComponent();
             System.Net.WebClient wc = new System.Net.WebClient();
-            string version = wc.DownloadString(VersionUrl);
+            try
+            {
+                version = wc.DownloadString(VersionUrl);
+                Version.Content = "Latest Version: " + version;
+            }
+            catch
+            {
+                Version.Content = "Offline";
+            }
             MainWin.Title = "Compiler Ui";
-            Version.Content = "Latest Version: " + version;
+
+            setBO3.Background = new SolidColorBrush(Color.FromArgb(55, 225, 225, 225));
+
+            if (!Directory.Exists(@"C:/t7compiler"))
+            {
+                update();
+            }
+
+            if (Directory.Exists(@"C:/t7compiler"))
+            {
+                if (!File.Exists(@"C:/t7compiler/TreyarchCompiler.dll") || !File.Exists(@"C:/t7compiler/debugcompiler.exe"))
+                {
+                    update();
+                }
+            }
         }
         #region ghostprocessfix
         private void ByeBye(object sender, CancelEventArgs e)
@@ -79,6 +104,7 @@ namespace Infinity_Loader_3._0 // lel
             }
 
             Process[] bo3 = Process.GetProcessesByName("blackops3");
+            Process[] bo4 = Process.GetProcessesByName("blackops4");
 
             if (!menuselected)
             {
@@ -87,80 +113,127 @@ namespace Infinity_Loader_3._0 // lel
             }
             else if (menuselected)
             {
-                if (gamemode == 0) { System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,mp"); realgm = "mp"; } // set our gamemodes
-                if (gamemode == 1) { System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,zm"); realgm = "zm"; }
-                if (gamemode == 2) { System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,sp"); realgm = "sp"; }
-
-                //                 this part gets a little confusing, what we're doing here is creating a batch file that will execute in the directory of our
-                //                 selected menu folder, it will call the debugcompiler with the --build argument, this will tell it to compile & inject everything within the "scripts" folder
-                File.WriteAllText(selectedFolder + "\\compile.bat", "cd " + selectedFolder + "\nc:/t7compiler/debugcompiler --build"); // create our batch
-
-                ProcessStartInfo startInfo = new ProcessStartInfo(); // our class
-
-                startInfo.FileName = selectedFolder + "\\compile.bat"; // this is what it will execute
-                startInfo.UseShellExecute = true; // this will create the process from the folder its in
-                startInfo.RedirectStandardOutput = false; // hides output
-                startInfo.WindowStyle = ProcessWindowStyle.Hidden; // hides the entire window so we don't see it
-                                                                   //Start the process
-                if (bo3.Length == 0)
+                string[] sp =
                 {
-                    MainWin.Hide();
-                    ErrorWin.Title = "Error";
-                    ErrorWin.Reason.Content = "Process";
-                    ErrorWin.Error("Looks like your game isn't open!\nOpen your selected game then try again.");
-                    return;
+                    "game=T8",
+                    "script=scripts\\core_common\\load_shared.gsc",
+                };
+                string[] mp =
+                {
+                    "game=T8",
+                    "script=scripts\\mp_common\\bb.gsc",
+                };
+                string[] zm =
+                {
+                    "game=T8",
+                    "script=scripts\\zm_common\\load.gsc",
+                };
+                if (gamemode == 0) 
+                { 
+                    if(game == "bo3")
+                    {
+                        System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,mp");
+                    }
+                    if (game == "bo4")
+                    {
+                        System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", mp);
+                    }
+                    realgm = "mp";
+                } 
+                if (gamemode == 1) 
+                {
+                    if (game == "bo3")
+                    {
+                        System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,zm");
+                    }
+                    if (game == "bo4")
+                    {
+                        System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", zm);
+                    }
+                    realgm = "zm";
                 }
+                if (gamemode == 2) 
+                {
+                    if (game == "bo3")
+                    {
+                        System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,mp");
+                    }
+                    if (game == "bo4")
+                    {
+                        System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", sp);
+                    }
+                    realgm = "sp";
+                }
+                if (bo4.Length < 0) { }
                 else
                 {
+                    //                 this part gets a little confusing, what we're doing here is creating a batch file that will execute in the directory of our
+                    //                 selected menu folder, it will call the debugcompiler with the --build argument, this will tell it to compile & inject everything within the "scripts" folder
+                    File.WriteAllText(selectedFolder + "\\compile.bat", "\"c:\\t7compiler\\debugcompiler\" --build"); // create our batch
+
+                    string[] temp = {
+                        
+                    };
+
+                    ProcessStartInfo startInfo = new ProcessStartInfo(); // our class
+
+                    startInfo.FileName = selectedFolder + "\\compile.bat"; // this is what it will execute
+                    startInfo.UseShellExecute = true; // this will create the process from the folder its in
+                    startInfo.RedirectStandardOutput = false;
+                    startInfo.WindowStyle = ProcessWindowStyle.Hidden; 
+                                                                       //Start the process                         
+
                     Process proc = Process.Start(startInfo);
 
                     new Task(() =>
-                    {
-                        System.Threading.Thread.Sleep(15000); // this is a bit hacky but its all I could think of, this runs a background
-                                                              // thread to kill the debug compiler after giving it
-                                                              // more than enough time to compile/inject (note: may cause issues on slower pcs)
+                        {
+                            System.Threading.Thread.Sleep(15000); // this is a bit hacky but its all I could think of, this runs a background
+                                                                  // thread to kill the debug compiler after giving it
+                                                                  // more than enough time to compile/inject (note: may cause issues on slower pcs)
                         compiler[0].Kill();
-                    }).Start(); // start our thread
+                        }).Start(); // start our thread
 
-                    // give the compiler some time to finish up
-                    System.Threading.Thread.Sleep(700);
+                    MainWin.Hide();
 
-
-                    MainWin.Hide(); 
 
                     ErrorWin.Title = "Success";
                     ErrorWin.Reason.Content = "Success";
                     ErrorWin.Error("Your menu was sucessfully compiled and injected!\n" + selectedFolder.Replace("\t\\", "/") + "\nGamemode(" + gamemode + ")" + realgm);
 
-                    menuselected = true;
                 }
+                //}
 
             }
         }
 
         private void SelectFolder(object sender, RoutedEventArgs e)
         {
+            ErrorWindow ErrorWin = new ErrorWindow();
+            if(game == null)
+            {
+                ErrorWin.Error("Please select a gamemode before trying to select a menu!");
+            }
             GSCCONFIG = string.Empty; // used for qol
 
-            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            using (var dialog = new CommonOpenFileDialog())
             {
-                dialog.Description = "Select your menu folder";
-                System.Windows.Forms.DialogResult result = dialog.ShowDialog();
-                if (result != System.Windows.Forms.DialogResult.OK) { return; /* we dont care */ }
-                if (result == System.Windows.Forms.DialogResult.OK)
+                dialog.Title = "Select Folder";
+                dialog.IsFolderPicker = true;
+
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
                     GSCCONFIG = selectedFolder + "\\gsc.conf";
-                    selectedFolder = dialog.SelectedPath;
+                    selectedFolder = dialog.FileName;
                 }
                 try
                 {
-                    GmTb.Text = System.IO.File.ReadAllText(selectedFolder + "\\gsc.conf").Replace("serious,", ""); // lets try to read this, if they dont have one lets make one!
+                    GmTb.Text = System.IO.File.ReadLines(selectedFolder + "\\gsc.conf").First().Replace("serious,", ""); // lets try to read this, if they dont have one lets make one!
                 }
                 catch
                 {
                     System.IO.File.Create(selectedFolder + "\\gsc.conf");
-                    System.IO.File.WriteAllText(GSCCONFIG, "symbols=serious,zm"); //default to zm just because we can
-                    GmTb.Text = System.IO.File.ReadAllText(selectedFolder + "\\gsc.conf").Replace("serious,", ""); // just so it doesnt get confusing for newer people
+                    System.IO.File.WriteAllText(GSCCONFIG, "symbols=bo3,serious,zm"); //default to zm just because we can
+                    GmTb.Text = System.IO.File.ReadLines(selectedFolder + "\\gsc.conf").First(); 
                 }
 
                 isfolder = true;
@@ -170,37 +243,69 @@ namespace Infinity_Loader_3._0 // lel
 
         public void SetMpInt(object sender, RoutedEventArgs e)
         {
+            string[] lines =
+            {
+                    "symbols=bo4,serious,mp",
+                    "script=scripts\\mp_common\\bb.gsc",
+            };
+
             ErrorWindow ErrorWin = new ErrorWindow();
+
             if (!menuselected)
             {
                 MainWin.Hide(); // throw up a reminder to select a folder
                 ErrorWin.Error("Please select a folder before trying to change gamemodes!");
                 return;
             }
+
             gamemode = 0;
-            System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,mp");
-            updateTextBox();
-        }
+            if (game == "bo3")
+            {
+                System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,mp");
+                updateTextBox();
+            }
+            if (game == "bo4")
+            {
+                System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", lines);
+                GmTb.Text = "symbols=bo4,serious,mp";
+            }
+    }
         public void SetZmInt(object sender, RoutedEventArgs e)
         {
+            string[] lines =
+            {
+                    "game=T8",
+                    "script=scripts\\zm_common\\load.gsc",
+            };
+
             ErrorWindow ErrorWin = new ErrorWindow();
+
             if (!menuselected)
             {
                 MainWin.Hide(); // throw up a reminder to select a folder
                 ErrorWin.Error("Please select a folder before trying to change gamemodes!");
                 return;
             }
+
             gamemode = 1;
-            System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,zm");
-            updateTextBox();
+            if (game == "bo3")
+            {
+                System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,zm");
+                updateTextBox();
+            }
+            if (game == "bo4")
+            {
+                System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", lines);
+                GmTb.Text = "symbols=bo4,serious,zm";
+            }
         }
 
         public void updateTextBox()
         {
-            GmTb.Text = System.IO.File.ReadAllText(selectedFolder + "\\gsc.conf").Replace("serious,", "");
+            GmTb.Text = System.IO.File.ReadLines(selectedFolder + "\\gsc.conf").First().Replace("serious,", "");
         }
 
-        private void UpdateClient(object sender, RoutedEventArgs e)
+        public void update()
         {
             ErrorWindow ErrorWin = new ErrorWindow();
             try
@@ -233,19 +338,61 @@ namespace Infinity_Loader_3._0 // lel
             }
         }
 
+        private void UpdateClient(object sender, RoutedEventArgs e)
+        {
+            update();
+        }
+
         private void SetSpInt(object sender, RoutedEventArgs e)
         {
             ErrorWindow ErrorWin = new ErrorWindow();
+            string[] lines =
+            {
+                    "symbols=bo4,serious,sp",
+                    "script=scripts\\core_common\\load_shared.gsc",
+            };
+
             if (!menuselected)
             {
                 MainWin.Hide(); // throw up a reminder to select a folder
                 ErrorWin.Error("Please select a folder before trying to change gamemodes!");
+
                 return;
             }
             gamemode = 2;
-            System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=serious,sp");
-            updateTextBox();
+            if (game == "bo3")
+            {
+                System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,sp");
+                updateTextBox();
+            }
+            if (game == "bo4")
+            {
+                System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", lines);
+                GmTb.Text = "symbols=bo4,serious,sp";
+            }
         }
 
+        private void setGame3(object sender, RoutedEventArgs e)
+        {
+            if (game == "bo3")
+                return;
+
+            game = "bo3";
+
+            setBO4.Background = new SolidColorBrush(Color.FromArgb(7, 255, 255, 255));
+            setBO3.Background = new SolidColorBrush(Color.FromArgb(55, 225, 225, 225));
+        }
+
+        private void setGame4(object sender, RoutedEventArgs e)
+        {
+            if (game == "bo4")
+                return;
+
+
+            game = "bo4";
+
+            setBO3.Background = new SolidColorBrush(Color.FromArgb(7, 255, 255, 255));
+            setBO4.Background = new SolidColorBrush(Color.FromArgb(55, 225, 225, 225));
+        }
     }
 }

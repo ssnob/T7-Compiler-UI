@@ -1,0 +1,28 @@
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\T7 Compiler UI.exe.config
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\T7 Compiler UI.exe
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\T7 Compiler UI.pdb
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\MaterialDesignColors.dll
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\MaterialDesignThemes.Wpf.dll
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\MaterialDesignColors.pdb
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\MaterialDesignThemes.Wpf.pdb
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\MaterialDesignThemes.Wpf.xml
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\T7 Compiler Ui.csproj.AssemblyReference.cache
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\MainWindow.baml
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\ErrorWindow.g.cs
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\MainWindow.g.cs
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\App.g.cs
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\T7 Compiler UI_MarkupCompile.cache
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\T7 Compiler UI_MarkupCompile.lref
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\App.baml
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\ErrorWindow.baml
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\T7 Compiler UI.g.resources
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\Infinity_Loader_3._0.Properties.Resources.resources
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\T7 Compiler Ui.csproj.GenerateResource.cache
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\T7 Compiler Ui.csproj.CoreCompileInputs.cache
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\T7 Compiler Ui.csproj.CopyComplete
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\T7 Compiler UI.exe
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\T7 Compiler UI.pdb
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\Microsoft.WindowsAPICodePack.dll
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\Microsoft.WindowsAPICodePack.Shell.dll
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\Microsoft.WindowsAPICodePack.pdb
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\Microsoft.WindowsAPICodePack.Shell.pdb
