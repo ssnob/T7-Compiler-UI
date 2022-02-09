@@ -57,6 +57,8 @@ namespace Infinity_Loader_3._0 // lel
             }
             MainWin.Title = "Compiler Ui";
 
+            game = "bo3";
+            gamemode = 1;
             setBO3.Background = new SolidColorBrush(Color.FromArgb(55, 225, 225, 225));
 
             if (!Directory.Exists(@"C:/t7compiler"))
@@ -77,13 +79,10 @@ namespace Infinity_Loader_3._0 // lel
         {
             Process[] compiler = Process.GetProcessesByName("t7 compiler ui");
             Process[] debugcompiler = Process.GetProcessesByName("debugcompiler");
-            try
-            {
-                debugcompiler[0].Kill();
-                System.Threading.Thread.Sleep(200);
-                compiler[0].Kill();
-            }
-            catch { }
+
+            if (debugcompiler[0].Id > 0) { debugcompiler[0].Kill(); }
+
+            
             Environment.Exit(0);
         }
         #endregion
@@ -93,16 +92,7 @@ namespace Infinity_Loader_3._0 // lel
             
             ErrorWindow ErrorWin = new ErrorWindow();
 
-            Process[] compiler = Process.GetProcessesByName("debugcompiler");
-            try
-            {
-                compiler[0].Kill();
-            }               // cleanup from any previous compiles
-            catch
-            {
-                // do nothing, this means there is no active ghost process
-            }
-
+            Process[] compiler = Process.GetProcessesByName("debugcompiler");         
             Process[] bo3 = Process.GetProcessesByName("blackops3");
             Process[] bo4 = Process.GetProcessesByName("blackops4");
 
@@ -110,100 +100,91 @@ namespace Infinity_Loader_3._0 // lel
             {
                 MainWin.Hide(); // throw up a reminder to select a folder
                 ErrorWin.Error("Please select a folder before trying to compile!");
+                return;
             }
-            else if (menuselected)
+
+            string[] sp =
             {
-                string[] sp =
+                "game=T8",
+                "script=scripts\\core_common\\load_shared.gsc",
+            };
+            string[] mp =
+            {
+                "game=T8",
+                "script=scripts\\mp_common\\bb.gsc",
+            };
+            string[] zm =
+            {
+                "game=T8",
+                "script=scripts\\zm_common\\load.gsc",
+            };
+            if (gamemode == 0) 
+            { 
+                if(game == "bo3")
                 {
-                    "game=T8",
-                    "script=scripts\\core_common\\load_shared.gsc",
-                };
-                string[] mp =
-                {
-                    "game=T8",
-                    "script=scripts\\mp_common\\bb.gsc",
-                };
-                string[] zm =
-                {
-                    "game=T8",
-                    "script=scripts\\zm_common\\load.gsc",
-                };
-                if (gamemode == 0) 
-                { 
-                    if(game == "bo3")
-                    {
-                        System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,mp");
-                    }
-                    if (game == "bo4")
-                    {
-                        System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", mp);
-                    }
-                    realgm = "mp";
-                } 
-                if (gamemode == 1) 
-                {
-                    if (game == "bo3")
-                    {
-                        System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,zm");
-                    }
-                    if (game == "bo4")
-                    {
-                        System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", zm);
-                    }
-                    realgm = "zm";
+                    System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,mp");
                 }
-                if (gamemode == 2) 
+                if (game == "bo4")
                 {
-                    if (game == "bo3")
-                    {
-                        System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,mp");
-                    }
-                    if (game == "bo4")
-                    {
-                        System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", sp);
-                    }
-                    realgm = "sp";
+                    System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", mp);
                 }
-                if (bo4.Length < 0) { }
-                else
+                realgm = "mp";
+            } 
+            if (gamemode == 1) 
+            {
+                if (game == "bo3")
                 {
-                    //                 this part gets a little confusing, what we're doing here is creating a batch file that will execute in the directory of our
-                    //                 selected menu folder, it will call the debugcompiler with the --build argument, this will tell it to compile & inject everything within the "scripts" folder
-                    File.WriteAllText(selectedFolder + "\\compile.bat", "\"c:\\t7compiler\\debugcompiler\" --build"); // create our batch
-
-                    string[] temp = {
-                        
-                    };
-
-                    ProcessStartInfo startInfo = new ProcessStartInfo(); // our class
-
-                    startInfo.FileName = selectedFolder + "\\compile.bat"; // this is what it will execute
-                    startInfo.UseShellExecute = true; // this will create the process from the folder its in
-                    startInfo.RedirectStandardOutput = false;
-                    startInfo.WindowStyle = ProcessWindowStyle.Hidden; 
-                                                                       //Start the process                         
-
-                    Process proc = Process.Start(startInfo);
-
-                    new Task(() =>
-                        {
-                            System.Threading.Thread.Sleep(15000); // this is a bit hacky but its all I could think of, this runs a background
-                                                                  // thread to kill the debug compiler after giving it
-                                                                  // more than enough time to compile/inject (note: may cause issues on slower pcs)
-                        compiler[0].Kill();
-                        }).Start(); // start our thread
-
-                    MainWin.Hide();
-
-
-                    ErrorWin.Title = "Success";
-                    ErrorWin.Reason.Content = "Success";
-                    ErrorWin.Error("Your menu was sucessfully compiled and injected!\n" + selectedFolder.Replace("\t\\", "/") + "\nGamemode(" + gamemode + ")" + realgm);
-
+                    System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,zm");
                 }
-                //}
-
+                if (game == "bo4")
+                {
+                    System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", zm);
+                }
+                realgm = "zm";
             }
+            if (gamemode == 2) 
+            {
+                if (game == "bo3")
+                {
+                    System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,mp");
+                }
+                if (game == "bo4")
+                {
+                    System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", sp);
+                }
+                realgm = "sp";
+            }
+            
+
+            File.WriteAllText(selectedFolder + "\\compile.bat", "cd " + selectedFolder.Replace(@"/", @"\") + "\nC:\\t7compiler\\debugcompiler --build"); // create our batch
+
+            string[] temp = {
+                
+            };
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(); // our class
+
+            startInfo.FileName = selectedFolder + "\\compile.bat"; // this is what it will execute
+            startInfo.UseShellExecute = true; // this will create the process from the folder its in
+            startInfo.RedirectStandardOutput = false;
+            startInfo.WindowStyle = ProcessWindowStyle.Normal;
+            //Start the process                         
+
+            Process proc = Process.Start(startInfo);
+
+            System.Threading.Thread.Sleep(1000);
+
+            new Task(() =>
+            {
+                System.Threading.Thread.Sleep(15000);
+                compiler[0].Kill();
+            }).Start();
+
+            ErrorWin.hide = false;
+            ErrorWin.Title = "Success";
+            ErrorWin.Reason.Content = "Success";
+            ErrorWin.Error("Your menu was sucessfully compiled and injected!\n" + selectedFolder.Replace("\t\\", "/") + "\nGamemode(" + gamemode + ")" + realgm);
+            return;
         }
 
         private void SelectFolder(object sender, RoutedEventArgs e)
@@ -251,6 +232,13 @@ namespace Infinity_Loader_3._0 // lel
 
             ErrorWindow ErrorWin = new ErrorWindow();
 
+            if (game == string.Empty)
+            {
+                MainWin.Hide();
+                ErrorWin.Error("Please select a game before trying to change gamemodes!");
+                return;
+            }
+
             if (!menuselected)
             {
                 MainWin.Hide(); // throw up a reminder to select a folder
@@ -279,6 +267,13 @@ namespace Infinity_Loader_3._0 // lel
             };
 
             ErrorWindow ErrorWin = new ErrorWindow();
+
+            if (game == string.Empty)
+            {
+                MainWin.Hide();
+                ErrorWin.Error("Please select a game before trying to change gamemodes!");
+                return;
+            }
 
             if (!menuselected)
             {
@@ -346,6 +341,12 @@ namespace Infinity_Loader_3._0 // lel
         private void SetSpInt(object sender, RoutedEventArgs e)
         {
             ErrorWindow ErrorWin = new ErrorWindow();
+            if (game == string.Empty)
+            {
+                MainWin.Hide();
+                ErrorWin.Error("Please select a game before trying to change gamemodes!");
+                return;
+            }
             string[] lines =
             {
                     "symbols=bo4,serious,sp",

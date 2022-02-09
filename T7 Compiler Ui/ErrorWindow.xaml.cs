@@ -19,6 +19,7 @@ namespace Infinity_Loader_3._0
     /// </summary>
     public partial class ErrorWindow : Window
     {
+        public bool hide = true;
         public ErrorWindow()
         {
             InitializeComponent();
@@ -33,7 +34,8 @@ namespace Infinity_Loader_3._0
 
             this.Hide();
 
-            mainwin.Show();
+            if(hide)
+                mainwin.Show();
         }
         
         public void setTitle(string title)
