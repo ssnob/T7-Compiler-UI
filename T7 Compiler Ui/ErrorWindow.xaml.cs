@@ -24,6 +24,7 @@ namespace Infinity_Loader_3._0
         {
             InitializeComponent();
             this.Title = "Error";
+            this.Topmost = true;
         }
 
         private void AcceptPrompt(object sender, RoutedEventArgs e)

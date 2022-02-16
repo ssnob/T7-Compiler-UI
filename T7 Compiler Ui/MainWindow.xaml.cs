@@ -1,23 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.IO;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Path = System.IO.Path;
 
@@ -43,9 +32,23 @@ namespace Infinity_Loader_3._0 // lel
         public int gamemode;
 
         string version;
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetConsoleWindow();
+
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        const int SW_HIDE = 0;
+        const int SW_SHOW = 5;
         public MainWindow()
         {
             InitializeComponent();
+            var handle = GetConsoleWindow();
+            ShowWindow(handle, SW_HIDE); // hide reading console
+
+            GmTb.IsReadOnly = true;
+            GmTb.IsHitTestVisible= false;
+
             System.Net.WebClient wc = new System.Net.WebClient();
             try
             {
@@ -79,9 +82,13 @@ namespace Infinity_Loader_3._0 // lel
         private void ByeBye(object sender, CancelEventArgs e)
         {
             //Process[] compiler = Process.GetProcessesByName("t7 compiler ui");
-            //Process[] debugcompiler = Process.GetProcessesByName("debugcompiler");
+            Process[] debugcompiler = Process.GetProcessesByName("debugcompiler");
 
-            //if (debugcompiler[0].Id > 0) { debugcompiler[0].Kill(); }
+            try
+            {
+                try { debugcompiler[0].Kill(); } catch { }
+            }
+            catch { }
 
             
             Environment.Exit(0);
@@ -194,7 +201,8 @@ namespace Infinity_Loader_3._0 // lel
 
             if (selectedFolder.StartsWith(@"C:\"))
             {
-                var direct = System.IO.Path.GetTempPath() + new DirectoryInfo(System.IO.Path.GetDirectoryName(selectedFolder + @"\\")).Name;
+                var direct = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\" + new DirectoryInfo(System.IO.Path.GetDirectoryName(selectedFolder + @"\\")).Name;
+                System.Windows.MessageBox.Show(direct, "info");
 
                 if (Directory.Exists(direct))
                 {
@@ -217,18 +225,33 @@ namespace Infinity_Loader_3._0 // lel
             ProcessStartInfo startInfo = new ProcessStartInfo(); 
 
             startInfo.FileName = newinfo + @"\compile.bat";                 // this is what it will execute
-            startInfo.UseShellExecute = true;                               // this will create the process from the folder its in
-            startInfo.RedirectStandardOutput = false;
+            startInfo.UseShellExecute = false;                               // this will create the process from the folder its in
+            startInfo.RedirectStandardOutput = true;
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
 
             Process proc = Process.Start(startInfo);
 
-            ErrorWin.hide = false;
-            ErrorWin.Title = "Success";
-            ErrorWin.Reason.Content = "Success";
-            ErrorWin.Error("Your menu was sucessfully compiled and injected!\n" + newinfo.Replace("\t\\", "/") + "\nGamemode(" + gamemode + ")" + realgm);
+            var info = proc.StandardOutput.ReadToEnd();
 
+            if (info.Contains("Press any key to reset gsc parsetree"))
+            {
+                ErrorWin.hide = false;
+                ErrorWin.Title = "Success";
+                ErrorWin.Reason.Content = "Success";
+                ErrorWin.Error("Your menu was sucessfully compiled and injected!\n" + newinfo.Replace("\t\\", "/") + "\nGamemode(" + gamemode + ")" + realgm);
 
+            }
+            else if(!info.Contains("Press any key to reset gsc parsetree"))
+            {
+                info.Replace(newinfo, "");
+                info.Replace("Script compiled. Press I to inject or anything else to continue\n", "");
+
+                ErrorWin.hide = false;
+                ErrorWin.Title = "Error";
+                ErrorWin.Reason.Content = "Warning";
+                ErrorWin.ErrorText.FontSize = 15;
+                ErrorWin.Error("An Error Occured:" + info);
+            }
         }
 
         public void hideshowballs(string a1)
@@ -259,7 +282,7 @@ namespace Infinity_Loader_3._0 // lel
             {
                 dialog.Title = "Select Folder";
                 dialog.IsFolderPicker = true;
-
+                dialog.InitialDirectory = "C:\\";
                 if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
                     GSCCONFIG = selectedFolder + "\\gsc.conf";
@@ -274,7 +297,7 @@ namespace Infinity_Loader_3._0 // lel
                 }
                 try
                 {
-                    var read = System.IO.File.ReadLines(selectedFolder + "\\gsc.conf").First().Replace("serious,", ""); //  try to read this
+                    var read = System.IO.File.ReadLines(selectedFolder + "\\gsc.conf").First(); //  try to read this
 
                     if (read.Contains("mp"))
                         gamemode = 0;
@@ -374,7 +397,7 @@ namespace Infinity_Loader_3._0 // lel
 
         public void updateTextBox()
         {
-            GmTb.Text = System.IO.File.ReadLines(selectedFolder + "\\gsc.conf").First().Replace("serious,", "");
+            GmTb.Text = System.IO.File.ReadLines(selectedFolder + "\\gsc.conf").First();
         }
 
         public void update()
@@ -472,6 +495,11 @@ namespace Infinity_Loader_3._0 // lel
 
             setBO3.Background = new SolidColorBrush(Color.FromArgb(7, 255, 255, 255));
             setBO4.Background = new SolidColorBrush(Color.FromArgb(55, 225, 225, 225));
+        }
+
+        private void Discord(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://discordapp.com/invite/gsc");
         }
     }
 }
