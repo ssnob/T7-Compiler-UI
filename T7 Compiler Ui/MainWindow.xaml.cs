@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -230,22 +231,27 @@ namespace Infinity_Loader_3._0 // lel
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
 
             Process proc = Process.Start(startInfo);
-
+            new Task(() =>
+            {
+                System.Threading.Thread.Sleep(4000);
+                Process[] debugcompiler = Process.GetProcessesByName("debugcompiler");
+                try { debugcompiler[0].Kill(); } catch { }
+            }
+            ).Start();
             var info = proc.StandardOutput.ReadToEnd();
+
+            info.Replace(newinfo, "");
 
             if (info.Contains("Press any key to reset gsc parsetree"))
             {
                 ErrorWin.hide = false;
                 ErrorWin.Title = "Success";
                 ErrorWin.Reason.Content = "Success";
-                ErrorWin.Error("Your menu was sucessfully compiled and injected!\n" + newinfo.Replace("\t\\", "/") + "\nGamemode(" + gamemode + ")" + realgm);
+                ErrorWin.Error("Your menu was sucessfully compiled and injected!:" + info);
 
             }
-            else if(!info.Contains("Press any key to reset gsc parsetree"))
+            if (!info.Contains("Press any key to reset gsc parsetree"))
             {
-                info.Replace(newinfo, "");
-                info.Replace("Script compiled. Press I to inject or anything else to continue\n", "");
-
                 ErrorWin.hide = false;
                 ErrorWin.Title = "Error";
                 ErrorWin.Reason.Content = "Warning";
@@ -289,7 +295,7 @@ namespace Infinity_Loader_3._0 // lel
                     selectedFolder = dialog.FileName;
                     if (!Directory.Exists(selectedFolder + "\\scripts"))
                     {
-                        this.Hide();
+                        ErrorWin.hide = false;
                         ErrorWin.setTitle("Error");
                         ErrorWin.Error("Folder does not contain a scripts folder.");
                         return;
