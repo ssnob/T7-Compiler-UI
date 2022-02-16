@@ -34,6 +34,7 @@
         <materialDesign:Chip x:Name="SinglePlayer" Content="SP" HorizontalAlignment="Left" Margin="8,194,0,0" VerticalAlignment="Top" Click="SetSpInt" ClickMode="Press" RenderTransformOrigin="0.138,0.528" Grid.Row="1" Foreground="#DDFFFFFF" Background="#12FFFFFF"/>
         <materialDesign:Chip x:Name="setBO3" Content="BO3" HorizontalAlignment="Left" Margin="8,157,0,0" VerticalAlignment="Top" Click="setGame3" ClickMode="Press" Grid.Row="1" Background="#11E1E1E1" Foreground="#DDFFFFFF" Width="47"/>
         <materialDesign:Chip x:Name="setBO4" Content="BO4" HorizontalAlignment="Left" Margin="58,157,0,0" VerticalAlignment="Top" Click="setGame4" ClickMode="Press" Grid.Row="1" Background="#12FFFFFF" Foreground="#DDFFFFFF" Width="47"/>
+        <Label x:Name="MenuName" Content="" HorizontalAlignment="Left" Margin="104,260,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
 
     </Grid>
 </Window>

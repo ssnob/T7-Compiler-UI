@@ -33,9 +33,9 @@ namespace Infinity_Loader_3._0
             resetme();
 
             this.Hide();
-
-            if(hide)
-                mainwin.Show();
+            System.Threading.Thread.Sleep(1000);
+            if (hide)
+                mainwin.hideshowballs("show");
         }
         
         public void setTitle(string title)
