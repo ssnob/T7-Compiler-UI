@@ -7,6 +7,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Path = System.IO.Path;
@@ -236,11 +237,11 @@ namespace Infinity_Loader_3._0 // lel
                 System.Threading.Thread.Sleep(4000);
                 Process[] debugcompiler = Process.GetProcessesByName("debugcompiler");
                 try { debugcompiler[0].Kill(); } catch { }
+                this.Cursor = Cursors.Arrow;
             }
             ).Start();
-            var info = proc.StandardOutput.ReadToEnd();
 
-            info.Replace(newinfo, "");
+            var info = proc.StandardOutput.ReadToEnd();
 
             if (info.Contains("Press any key to reset gsc parsetree"))
             {
@@ -340,14 +341,14 @@ namespace Infinity_Loader_3._0 // lel
 
             if (game == string.Empty)
             {
-                MainWin.Hide();
+                ErrorWin.hide = false;
                 ErrorWin.Error("Please select a game before trying to change gamemodes!");
                 return;
             }
 
             if (!menuselected)
             {
-                MainWin.Hide(); // throw up a reminder to select a folder
+                ErrorWin.hide = false;
                 ErrorWin.Error("Please select a folder before trying to change gamemodes!");
                 return;
             }
@@ -376,14 +377,14 @@ namespace Infinity_Loader_3._0 // lel
 
             if (game == string.Empty)
             {
-                MainWin.Hide();
+                ErrorWin.hide = false;
                 ErrorWin.Error("Please select a game before trying to change gamemodes!");
                 return;
             }
 
             if (!menuselected)
             {
-                MainWin.Hide(); // throw up a reminder to select a folder
+                ErrorWin.hide = false;
                 ErrorWin.Error("Please select a folder before trying to change gamemodes!");
                 return;
             }
@@ -400,7 +401,39 @@ namespace Infinity_Loader_3._0 // lel
                 GmTb.Text = "symbols=bo4,serious,zm";
             }
         }
+        private void SetSpInt(object sender, RoutedEventArgs e)
+        {
+            ErrorWindow ErrorWin = new ErrorWindow();
+            if (game == string.Empty)
+            {
+                ErrorWin.hide = false;
+                ErrorWin.Error("Please select a game before trying to change gamemodes!");
+                return;
+            }
+            string[] lines =
+            {
+                    "symbols=bo4,serious,sp",
+                    "script=scripts\\core_common\\load_shared.gsc",
+            };
 
+            if (!menuselected)
+            {
+                ErrorWin.hide = false;
+                ErrorWin.Error("Please select a folder before trying to change gamemodes!");
+                return;
+            }
+            gamemode = 2;
+            if (game == "bo3")
+            {
+                System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,sp");
+                updateTextBox();
+            }
+            if (game == "bo4")
+            {
+                System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", lines);
+                GmTb.Text = "symbols=bo4,serious,sp";
+            }
+        }
         public void updateTextBox()
         {
             GmTb.Text = System.IO.File.ReadLines(selectedFolder + "\\gsc.conf").First();
@@ -443,41 +476,6 @@ namespace Infinity_Loader_3._0 // lel
         private void UpdateClient(object sender, RoutedEventArgs e)
         {
             update();
-        }
-
-        private void SetSpInt(object sender, RoutedEventArgs e)
-        {
-            ErrorWindow ErrorWin = new ErrorWindow();
-            if (game == string.Empty)
-            {
-                MainWin.Hide();
-                ErrorWin.Error("Please select a game before trying to change gamemodes!");
-                return;
-            }
-            string[] lines =
-            {
-                    "symbols=bo4,serious,sp",
-                    "script=scripts\\core_common\\load_shared.gsc",
-            };
-
-            if (!menuselected)
-            {
-                MainWin.Hide(); // throw up a reminder to select a folder
-                ErrorWin.Error("Please select a folder before trying to change gamemodes!");
-
-                return;
-            }
-            gamemode = 2;
-            if (game == "bo3")
-            {
-                System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,sp");
-                updateTextBox();
-            }
-            if (game == "bo4")
-            {
-                System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", lines);
-                GmTb.Text = "symbols=bo4,serious,sp";
-            }
         }
 
         private void setGame3(object sender, RoutedEventArgs e)

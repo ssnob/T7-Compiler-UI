@@ -1,0 +1,17 @@
+﻿<Window x:Class="Infinity_Loader_3._0.Loading"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Infinity_Loader_3._0"
+        mc:Ignorable="d"
+        Title="Loading" Height="190.789" Width="514.473" WindowStyle="None" Background="#FF1D1B1B">
+    <Grid Margin="0,0,272,258">
+        <Image HorizontalAlignment="Left" Height="116" Margin="21,34,0,-150" VerticalAlignment="Top" Width="100">
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="load.gif" Stretch="Uniform"/>
+            </Image.OpacityMask>
+        </Image>
+
+    </Grid>
+</Window>

@@ -26,3 +26,5 @@ E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\Micro
 E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\Microsoft.WindowsAPICodePack.Shell.dll
 E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\Microsoft.WindowsAPICodePack.pdb
 E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Release\Microsoft.WindowsAPICodePack.Shell.pdb
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\Loading.g.cs
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Release\Loading.baml
