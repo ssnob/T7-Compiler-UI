@@ -204,7 +204,6 @@ namespace Infinity_Loader_3._0 // lel
             if (selectedFolder.StartsWith(@"C:\"))
             {
                 var direct = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\" + new DirectoryInfo(System.IO.Path.GetDirectoryName(selectedFolder + @"\\")).Name;
-                System.Windows.MessageBox.Show(direct, "info");
 
                 if (Directory.Exists(direct))
                 {
@@ -227,7 +226,7 @@ namespace Infinity_Loader_3._0 // lel
             ProcessStartInfo startInfo = new ProcessStartInfo(); 
 
             startInfo.FileName = newinfo + @"\compile.bat";                 // this is what it will execute
-            startInfo.UseShellExecute = false;                               // this will create the process from the folder its in
+            startInfo.UseShellExecute = false;                              
             startInfo.RedirectStandardOutput = true;
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
 
@@ -245,14 +244,37 @@ namespace Infinity_Loader_3._0 // lel
 
             if (info.Contains("Press any key to reset gsc parsetree"))
             {
+                #region replacespam
+                info = info.Replace(Environment.CurrentDirectory, "");
+                info = info.Replace(newinfo, "");
+                info = info.Replace(">cd", "");
+                info = info.Replace(">C:\\t7compiler\\debugcompiler --build", "");
+                info = info.Replace("\\" + new DirectoryInfo(System.IO.Path.GetDirectoryName(selectedFolder + @"\\")).Name, "");
+                info = info.Replace("Script compiled. Press I to inject or anything else to continue", "");
+                info = info.Replace("compiled.gscc", "");
+                info = info.Replace("Press any key to reset gsc parsetree...", "");
+                #endregion
+
                 ErrorWin.hide = false;
                 ErrorWin.Title = "Success";
                 ErrorWin.Reason.Content = "Success";
-                ErrorWin.Error("Your menu was sucessfully compiled and injected!:" + info);
-
+                ErrorWin.Error("Your menu was sucessfully compiled and injected!:" + info);  
             }
+
+
+            
             if (!info.Contains("Press any key to reset gsc parsetree"))
             {
+                #region replacespam
+                info = info.Replace(Environment.CurrentDirectory, "");
+                info = info.Replace(newinfo, "");
+                info = info.Replace(">cd", "");
+                info = info.Replace(">C:\\t7compiler\\debugcompiler --build", "");
+                info = info.Replace("\\" + new DirectoryInfo(System.IO.Path.GetDirectoryName(selectedFolder + @"\\")).Name, "");
+                info = info.Replace("Script compiled. Press I to inject or anything else to continue", "");
+                info = info.Replace("compiled.gscc", "");
+                #endregion
+
                 ErrorWin.hide = false;
                 ErrorWin.Title = "Error";
                 ErrorWin.Reason.Content = "Warning";
