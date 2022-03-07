@@ -45,11 +45,17 @@ namespace Infinity_Loader_3._0 // lel
         public MainWindow()
         {
             InitializeComponent();
-            var handle = GetConsoleWindow();
-            ShowWindow(handle, SW_HIDE); // hide reading console
 
+            var handle = GetConsoleWindow();
+            _ = ShowWindow(handle, SW_HIDE); // hide reading console
+
+            onStart();
+        }
+
+        void onStart()
+        {
             GmTb.IsReadOnly = true;
-            GmTb.IsHitTestVisible= false;
+            GmTb.IsHitTestVisible = false;
 
             System.Net.WebClient wc = new System.Net.WebClient();
             try
@@ -80,6 +86,14 @@ namespace Infinity_Loader_3._0 // lel
                 }
             }
         }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+
+            this.DragMove();
+        }
+
         #region ghostprocessfix
         private void ByeBye(object sender, CancelEventArgs e)
         {
@@ -92,8 +106,8 @@ namespace Infinity_Loader_3._0 // lel
             }
             catch { }
 
-            
-            Environment.Exit(0);
+
+            Application.Current.Shutdown();
         }
         #endregion
 
@@ -132,11 +146,14 @@ namespace Infinity_Loader_3._0 // lel
 
         private void Compile(object sender, RoutedEventArgs e)
         {
-            string realgm = string.Empty;
-            
+            string info = string.Empty;
+            string newinfo = string.Empty;
             ErrorWindow ErrorWin = new ErrorWindow();
+            this.Cursor = Cursors.Wait;
 
-            Process[] compiler = Process.GetProcessesByName("debugcompiler");         
+            string realgm = string.Empty;
+
+            Process[] compiler = Process.GetProcessesByName("debugcompiler");
             Process[] bo3 = Process.GetProcessesByName("blackops3");
             Process[] bo4 = Process.GetProcessesByName("blackops4");
 
@@ -149,22 +166,22 @@ namespace Infinity_Loader_3._0 // lel
 
             string[] sp =
             {
-                "game=T8",
-                "script=scripts\\core_common\\load_shared.gsc",
+            "game=T8",
+            "script=scripts\\core_common\\load_shared.gsc",
             };
             string[] mp =
             {
-                "game=T8",
-                "script=scripts\\mp_common\\bb.gsc",
+            "game=T8",
+            "script=scripts\\mp_common\\bb.gsc",
             };
             string[] zm =
             {
-                "game=T8",
-                "script=scripts\\zm_common\\load.gsc",
+            "game=T8",
+            "script=scripts\\zm_common\\load.gsc",
             };
-            if (gamemode == 0) 
-            { 
-                if(game == "bo3")
+            if (gamemode == 0)
+            {
+                if (game == "bo3")
                 {
                     System.IO.File.WriteAllText(selectedFolder + "\\gsc.conf", "symbols=bo3,serious,mp");
                 }
@@ -173,8 +190,8 @@ namespace Infinity_Loader_3._0 // lel
                     System.IO.File.WriteAllLines(selectedFolder + "\\gsc.conf", mp);
                 }
                 realgm = "mp";
-            } 
-            if (gamemode == 1) 
+            }
+            if (gamemode == 1)
             {
                 if (game == "bo3")
                 {
@@ -186,7 +203,7 @@ namespace Infinity_Loader_3._0 // lel
                 }
                 realgm = "zm";
             }
-            if (gamemode == 2) 
+            if (gamemode == 2)
             {
                 if (game == "bo3")
                 {
@@ -199,8 +216,6 @@ namespace Infinity_Loader_3._0 // lel
                 realgm = "sp";
             }
 
-            string newinfo;
-
             if (selectedFolder.StartsWith(@"C:\"))
             {
                 var direct = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\" + new DirectoryInfo(System.IO.Path.GetDirectoryName(selectedFolder + @"\\")).Name;
@@ -209,7 +224,7 @@ namespace Infinity_Loader_3._0 // lel
                 {
                     Directory.Delete(direct, true);
                 }
-                    
+
                 Directory.CreateDirectory(direct);
 
                 CopyDirectory(selectedFolder, direct, true);
@@ -223,67 +238,44 @@ namespace Infinity_Loader_3._0 // lel
             }
 
             File.WriteAllText(newinfo + @"\compile.bat", "cd " + newinfo.Replace(@"/", @"\") + "\nC:\\t7compiler\\debugcompiler --build");
-            ProcessStartInfo startInfo = new ProcessStartInfo(); 
+            ProcessStartInfo startInfo = new ProcessStartInfo();
 
             startInfo.FileName = newinfo + @"\compile.bat";                 // this is what it will execute
-            startInfo.UseShellExecute = false;                              
+            startInfo.UseShellExecute = false;
             startInfo.RedirectStandardOutput = true;
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
             Process proc = Process.Start(startInfo);
             new Task(() =>
             {
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(4500);
                 Process[] debugcompiler = Process.GetProcessesByName("debugcompiler");
                 try { debugcompiler[0].Kill(); } catch { }
                 this.Cursor = Cursors.Arrow;
             }
             ).Start();
 
-            var info = proc.StandardOutput.ReadToEnd();
+            info = proc.StandardOutput.ReadToEnd();
 
-            if (info.Contains("Press any key to reset gsc parsetree"))
-            {
-                #region replacespam
-                info = info.Replace(Environment.CurrentDirectory, "");
-                info = info.Replace(newinfo, "");
-                info = info.Replace(">cd", "");
-                info = info.Replace(">C:\\t7compiler\\debugcompiler --build", "");
-                info = info.Replace("\\" + new DirectoryInfo(System.IO.Path.GetDirectoryName(selectedFolder + @"\\")).Name, "");
-                info = info.Replace("Script compiled. Press I to inject or anything else to continue", "");
-                info = info.Replace("compiled.gscc", "");
-                info = info.Replace("Press any key to reset gsc parsetree...", "");
-                #endregion
+            Task.WaitAll();
+            #region replacespam
+            info = info.Replace(Environment.CurrentDirectory, "");
+            info = info.Replace(newinfo, "");
+            info = info.Replace(">cd", "");
+            info = info.Replace(">C:\\t7compiler\\debugcompiler --build", "");
+            info = info.Replace("\\" + new DirectoryInfo(System.IO.Path.GetDirectoryName(selectedFolder + @"\\")).Name, "");
+            info = info.Replace("Script compiled. Press I to inject or anything else to continue", "");
+            info = info.Replace("compiled.gscc", "");
+            info = info.Replace("Press any key to reset gsc parsetree...", "");
+            #endregion
 
-                ErrorWin.hide = false;
-                ErrorWin.Title = "Success";
-                ErrorWin.Reason.Content = "Success";
-                ErrorWin.Error("Your menu was sucessfully compiled and injected!:" + info);  
-            }
+            ErrorWin.hide = false;
+            ErrorWin.Title = "Result";
+            ErrorWin.Reason.Content = "Result";
+            ErrorWin.Error("Result:" + info);
 
-
-            
-            if (!info.Contains("Press any key to reset gsc parsetree"))
-            {
-                #region replacespam
-                info = info.Replace(Environment.CurrentDirectory, "");
-                info = info.Replace(newinfo, "");
-                info = info.Replace(">cd", "");
-                info = info.Replace(">C:\\t7compiler\\debugcompiler --build", "");
-                info = info.Replace("\\" + new DirectoryInfo(System.IO.Path.GetDirectoryName(selectedFolder + @"\\")).Name, "");
-                info = info.Replace("Script compiled. Press I to inject or anything else to continue", "");
-                info = info.Replace("compiled.gscc", "");
-                #endregion
-
-                ErrorWin.hide = false;
-                ErrorWin.Title = "Error";
-                ErrorWin.Reason.Content = "Warning";
-                ErrorWin.ErrorText.FontSize = 15;
-                ErrorWin.Error("An Error Occured:" + info);
-            }
         }
 
-        public void hideshowballs(string a1)
+        public void hideshow(string a1)
         {
             switch (a1)
             {
@@ -526,6 +518,25 @@ namespace Infinity_Loader_3._0 // lel
         private void Discord(object sender, RoutedEventArgs e)
         {
             Process.Start("https://discordapp.com/invite/gsc");
+        }
+
+        private void MinI(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void ByeByeClick(object sender, RoutedEventArgs e)
+        {
+            Process[] debugcompiler = Process.GetProcessesByName("debugcompiler");
+
+            try
+            {
+                try { debugcompiler[0].Kill(); } catch { }
+            }
+            catch { }
+
+
+            Application.Current.Shutdown();
         }
     }
 }

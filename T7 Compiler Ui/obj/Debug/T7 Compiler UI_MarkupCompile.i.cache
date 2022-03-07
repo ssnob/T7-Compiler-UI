@@ -1,7 +1,7 @@
 ﻿T7 Compiler UI
 
 
-winexe
+exe
 C#
 .cs
 E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\
@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\App.xaml
-2335440339
+3-1468278145
 
-7676168925
-16442287332
-ErrorWindow.xaml;MainWindow.xaml;
+91594217422
+181919688042
+ErrorWindow.xaml;Loading.xaml;MainWindow.xaml;
 
-False
+True
 

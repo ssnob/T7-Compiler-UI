@@ -46,3 +46,10 @@ E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Comp
 E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Compiler Ui.csproj.CopyComplete
 E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Compiler UI.exe
 E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Compiler UI.pdb
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Debug\Microsoft.WindowsAPICodePack.dll
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Debug\Microsoft.WindowsAPICodePack.pdb
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\bin\Debug\Microsoft.WindowsAPICodePack.Shell.pdb
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\Loading.g.cs
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\Loading.baml
+E:\Backup\Code\C#\t7-compiler ui\T7-Compiler-UI\T7 Compiler Ui\obj\Debug\T7 Compiler Ui.csproj.SuggestedBindingRedirects.cache

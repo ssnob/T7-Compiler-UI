@@ -13,30 +13,39 @@
      TextOptions.TextFormattingMode="Ideal"
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}"
-     FontFamily="{DynamicResource MaterialDesignFont}" ResizeMode="CanMinimize" Uid="Ui" WindowStartupLocation="CenterScreen" Height="534" Width="1085" >
-    <Grid Margin="0,0,0,-19">
+     FontFamily="{DynamicResource MaterialDesignFont}" ResizeMode="CanMinimize" Uid="Ui" WindowStartupLocation="CenterScreen" Height="534" Width="1085" WindowStyle="None" >
+    <Grid x:Name="MainGrid" Margin="0,0,0,-19">
         <Grid.RowDefinitions>
             <RowDefinition Height="203*"/>
             <RowDefinition Height="321*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="643*"/>
-            <ColumnDefinition Width="426*"/>
-            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="741*"/>
+            <ColumnDefinition Width="344*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Select Folder" HorizontalAlignment="Left" Margin="10,10,0,0"  Width="124" VerticalAlignment="Top" Click="SelectFolder" ClickMode="Press" Background="#FF397CB4" BorderBrush="#FF397CB4"/>
-        <Button Content="Compile" HorizontalAlignment="Left" Margin="10,255,0,0"  Width="86" VerticalAlignment="Top" Click="Compile" RenderTransformOrigin="0.5,0.5" ClickMode="Press" Grid.Row="1" Background="#FF397CB4" BorderBrush="#FF397CB4"/>
-        <TextBox x:Name="GmTb" HorizontalAlignment="Left" Height="23" Margin="10,227,0,0" TextWrapping="Wrap" Text="symbols:" VerticalAlignment="Top" Width="264" Grid.Row="1" CaretBrush="#FF397CB4" Foreground="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" BorderBrush="#89FFFFFF" SelectionBrush="#FF9DD5DB" Cursor="Arrow"/>
-        <materialDesign:Chip x:Name="MutliPlayer" Content="MP" HorizontalAlignment="Left" Margin="51,194,0,0" VerticalAlignment="Top" Click="SetMpInt" ClickMode="Press" Grid.Row="1" Background="#12FFFFFF" Foreground="#DDFFFFFF"/>
-        <materialDesign:Chip x:Name="Zombies" Content="ZM" HorizontalAlignment="Left" Margin="99,194,0,0" VerticalAlignment="Top" Click="SetZmInt" ClickMode="Press" Grid.Row="1" Background="#12FFFFFF" Foreground="#DDFFFFFF"/>
-        <Button Content="Check For Updates" HorizontalAlignment="Left" Margin="257.155,255,0,0"  Width="159" VerticalAlignment="Top" Click="UpdateClient" RenderTransformOrigin="0.5,0.5" ClickMode="Press" Grid.Row="1" Background="#FF397CB4" BorderBrush="#FF397CB4" Grid.Column="1"/>
-        <Label x:Name="Version" Content="Latest Version: " HorizontalAlignment="Left" Margin="113.155,260,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Foreground="#DDFFFFFF"/>
-        <materialDesign:Chip x:Name="SinglePlayer" Content="SP" HorizontalAlignment="Left" Margin="8,194,0,0" VerticalAlignment="Top" Click="SetSpInt" ClickMode="Press" RenderTransformOrigin="0.138,0.528" Grid.Row="1" Foreground="#DDFFFFFF" Background="#12FFFFFF"/>
-        <materialDesign:Chip x:Name="setBO3" Content="BO3" HorizontalAlignment="Left" Margin="8,157,0,0" VerticalAlignment="Top" Click="setGame3" ClickMode="Press" Grid.Row="1" Background="#11E1E1E1" Foreground="#DDFFFFFF" Width="47"/>
-        <materialDesign:Chip x:Name="setBO4" Content="BO4" HorizontalAlignment="Left" Margin="58,157,0,0" VerticalAlignment="Top" Click="setGame4" ClickMode="Press" Grid.Row="1" Background="#12FFFFFF" Foreground="#DDFFFFFF" Width="47"/>
-        <Label x:Name="MenuName" Content="" HorizontalAlignment="Left" Margin="104,260,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
-        <Button Content="Discord" HorizontalAlignment="Left" Margin="324,10,0,0"  Width="92" VerticalAlignment="Top" Click="Discord" RenderTransformOrigin="0.5,0.5" ClickMode="Press" Background="#FF397CB4" BorderBrush="#FF397CB4" Grid.Column="1"/>
 
+        <Button Content="Select Folder" HorizontalAlignment="Left" Margin="8,35,0,0"  Width="124" VerticalAlignment="Top" Click="SelectFolder" ClickMode="Press" Background="#FF397CB4" BorderBrush="#FF397CB4"/>
+        <Button Content="Compile" HorizontalAlignment="Left" Margin="10,281,0,0"  Width="86" VerticalAlignment="Top" Click="Compile" RenderTransformOrigin="0.5,0.5" ClickMode="Press" Grid.Row="1" Background="#FF397CB4" BorderBrush="#FF397CB4"/>
+        <TextBox x:Name="GmTb" HorizontalAlignment="Left" Height="23" Margin="10,253,0,0" TextWrapping="Wrap" Text="symbols:" VerticalAlignment="Top" Width="264" Grid.Row="1" CaretBrush="#FF397CB4" Foreground="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" BorderBrush="#89FFFFFF" SelectionBrush="#FF9DD5DB" Cursor="Arrow"/>
+        <materialDesign:Chip x:Name="MutliPlayer" Content="MP" HorizontalAlignment="Left" Margin="51,220,0,0" VerticalAlignment="Top" Click="SetMpInt" ClickMode="Press" Grid.Row="1" Background="#12FFFFFF" Foreground="#DDFFFFFF" Width="43"/>
+        <materialDesign:Chip x:Name="Zombies" Content="ZM" HorizontalAlignment="Left" Margin="99,220,0,0" VerticalAlignment="Top" Click="SetZmInt" ClickMode="Press" Grid.Row="1" Background="#12FFFFFF" Foreground="#DDFFFFFF" Width="43"/>
+        <Button Content="Check For Updates" HorizontalAlignment="Left" Margin="167,277,0,0"  Width="159" VerticalAlignment="Top" Click="UpdateClient" RenderTransformOrigin="0.5,0.5" ClickMode="Press" Grid.Row="1" Background="#FF397CB4" BorderBrush="#FF397CB4" Grid.Column="1"/>
+        <Label x:Name="Version" Content="Latest Version: " HorizontalAlignment="Left" Margin="4,285,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Foreground="#DDFFFFFF" Height="24" Width="94"/>
+        <materialDesign:Chip x:Name="SinglePlayer" Content="SP" HorizontalAlignment="Left" Margin="8,220,0,0" VerticalAlignment="Top" Click="SetSpInt" ClickMode="Press" RenderTransformOrigin="0.138,0.528" Grid.Row="1" Foreground="#DDFFFFFF" Background="#12FFFFFF" Width="38"/>
+        <materialDesign:Chip x:Name="setBO3" Content="BO3" HorizontalAlignment="Left" Margin="8,183,0,0" VerticalAlignment="Top" Click="setGame3" ClickMode="Press" Grid.Row="1" Background="#11E1E1E1" Foreground="#DDFFFFFF" Width="47"/>
+        <materialDesign:Chip x:Name="setBO4" Content="BO4" HorizontalAlignment="Left" Margin="58,183,0,0" VerticalAlignment="Top" Click="setGame4" ClickMode="Press" Grid.Row="1" Background="#12FFFFFF" Foreground="#DDFFFFFF" Width="47"/>
+        <Label x:Name="MenuName" Content="" HorizontalAlignment="Left" Margin="104,286,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="#DDFFFFFF" Height="24" Width="8"/>
+        <Button Content="Discord" HorizontalAlignment="Left" Margin="242,35,0,0"  Width="92" VerticalAlignment="Top" Click="Discord" RenderTransformOrigin="0.5,0.5" ClickMode="Press" Background="#FF397CB4" BorderBrush="#FF397CB4" Grid.Column="1"/>
+
+        <Grid x:Name="TopBar" Height="60" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <Border Background="#16171B"
+            CornerRadius="0" Margin="0,-2,-3,29">
+            </Border>
+
+            <Button x:Name="exitButton" Content="❌" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource RightButtonStyle}" Cursor="Hand" Click="ByeByeClick" Margin="1050,0,0,0" Height="31" VerticalAlignment="Top" RenderTransformOrigin="0.488,0.529"/>
+            <Button x:Name="minButton" Content="➖" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource RightButtonStyle}" Cursor="Hand" Click="MinI"  Margin="1015,-4,35,26" />
+
+        </Grid>
     </Grid>
 </Window>
     
