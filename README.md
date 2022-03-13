@@ -15,7 +15,7 @@ Insure the folder contains a "scripts" folder
 Select your gamemode
 Hit compile/inject
 
-# More Info?![Ui](Update.png)
+# More Info?![Ui](https://github.com/ssnob/T7-Compiler-UI/blob/main/GitHub_Assets/Loader.png)
 
 Compiler by https://github.com/shiversoftdev 
 Compiler Link https://github.com/shiversoftdev/t7-compiler
