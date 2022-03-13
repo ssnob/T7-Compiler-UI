@@ -583,13 +583,10 @@ namespace DevInjector
             {
                 SavedOrNotSavedLbl.Content = "Saved";
             }
-            Helper.StaThreadWrapper(() =>
-            {
-                Compile compile = new Compile();
-                try { File.WriteAllText(gsc, GSCText.Text); } catch { }
-                Thread.Sleep(300);
-                compile.CompileFinal(path, GAME, GAME_MODE, isfolderselected);
-            });
+            Compile compile = new Compile();
+            try { File.WriteAllText(gsc, GSCText.Text); } catch { }
+            Thread.Sleep(300);
+            compile.CompileFinal(path, GAME, GAME_MODE, isfolderselected);
         }
 
         private void CampaignClick(object sender, RoutedEventArgs e)

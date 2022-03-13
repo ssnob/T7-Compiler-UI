@@ -117,21 +117,19 @@ namespace DevInjector.Actions
             startInfo.UseShellExecute = false;
             startInfo.RedirectStandardOutput = true;
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
             Process proc = Process.Start(startInfo);
-
-            string info = string.Empty;
-
-
-            new Task(() =>
+            try
             {
-                System.Threading.Thread.Sleep(2400);
-                Process[] proca = Process.GetProcessesByName("debugcompiler");
-                proca[0].Kill();
-            }).Start();
+                System.Threading.Thread.Sleep(2600);
+                foreach (var process in Process.GetProcessesByName("debugcompiler"))
+                {
+                    process.Kill();
+                }
+            }
+            catch { }
+            string info = proc.StandardOutput.ReadToEnd();
 
-            info = proc.StandardOutput.ReadToEnd();
-
-            Task.WaitAll();
             #region replacespam
             info = info.Replace(Environment.CurrentDirectory, "");
             info = info.Replace(path, "");
@@ -144,14 +142,10 @@ namespace DevInjector.Actions
             info = info.Replace("If in game, you are probaly going to crash...", "");
             #endregion
 
+
             var resultString = Regex.Replace(info, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
             File.WriteAllText(Environment.CurrentDirectory + "\\output.txt", resultString + "---------------------------");
 
-            //if (info.Contains("No game process found"))
-            //{
-            //    merror.SendMessage("Result", "No game process found");
-            //    return;
-            //}
             var SplitBy = "\n";
             TextReader tr = new StreamReader(Environment.CurrentDirectory + "\\output.txt");
             var fullLog = tr.ReadToEnd();
@@ -182,6 +176,7 @@ namespace DevInjector.Actions
                     }
                 }
             }
+
         }
     } 
 }
