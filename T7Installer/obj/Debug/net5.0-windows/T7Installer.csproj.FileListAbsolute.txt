@@ -1,0 +1,16 @@
+E:\Backup\Code\C#\DevInjector\T7Installer\bin\Debug\net5.0-windows\T7Installer.exe
+E:\Backup\Code\C#\DevInjector\T7Installer\bin\Debug\net5.0-windows\T7Installer.deps.json
+E:\Backup\Code\C#\DevInjector\T7Installer\bin\Debug\net5.0-windows\T7Installer.runtimeconfig.json
+E:\Backup\Code\C#\DevInjector\T7Installer\bin\Debug\net5.0-windows\T7Installer.runtimeconfig.dev.json
+E:\Backup\Code\C#\DevInjector\T7Installer\bin\Debug\net5.0-windows\T7Installer.dll
+E:\Backup\Code\C#\DevInjector\T7Installer\bin\Debug\net5.0-windows\T7Installer.pdb
+E:\Backup\Code\C#\DevInjector\T7Installer\obj\Debug\net5.0-windows\T7Installer.csproj.AssemblyReference.cache
+E:\Backup\Code\C#\DevInjector\T7Installer\obj\Debug\net5.0-windows\T7Installer.GeneratedMSBuildEditorConfig.editorconfig
+E:\Backup\Code\C#\DevInjector\T7Installer\obj\Debug\net5.0-windows\T7Installer.AssemblyInfoInputs.cache
+E:\Backup\Code\C#\DevInjector\T7Installer\obj\Debug\net5.0-windows\T7Installer.AssemblyInfo.cs
+E:\Backup\Code\C#\DevInjector\T7Installer\obj\Debug\net5.0-windows\T7Installer.csproj.CoreCompileInputs.cache
+E:\Backup\Code\C#\DevInjector\T7Installer\obj\Debug\net5.0-windows\T7Installer.dll
+E:\Backup\Code\C#\DevInjector\T7Installer\obj\Debug\net5.0-windows\refint\T7Installer.dll
+E:\Backup\Code\C#\DevInjector\T7Installer\obj\Debug\net5.0-windows\T7Installer.pdb
+E:\Backup\Code\C#\DevInjector\T7Installer\obj\Debug\net5.0-windows\T7Installer.genruntimeconfig.cache
+E:\Backup\Code\C#\DevInjector\T7Installer\obj\Debug\net5.0-windows\ref\T7Installer.dll
