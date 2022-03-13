@@ -1,4 +1,0 @@
-T7/T8 Compiler version 3.0.2.0, by Serious
-Checking client version... (our version is 3000000020000)
-Syntax error in scripts/headers.gsc around line 12
----------------------------

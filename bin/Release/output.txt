@@ -1,2 +1,0 @@
-T7/T8 Compiler version 3.0.2.0, by Serious
----------------------------
