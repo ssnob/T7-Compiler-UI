@@ -15,7 +15,7 @@ https://github.com/shiversoftdev/t7-compiler
 
 # Credits
 serious
-
+AngryCarrot789
 Icons created by Smashicons
 https://www.flaticon.com/free-icons/document
 
