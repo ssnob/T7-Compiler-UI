@@ -14,7 +14,9 @@ https://github.com/shiversoftdev/t7-compiler
 * Auto Save
 
 # Credits
-serious
+* serious
+* AngryCarrot789
+* Icons created by Smashicons
+* https://www.flaticon.com/free-icons/document
 
-Icons created by Smashicons
-https://www.flaticon.com/free-icons/document
+![Screenshot](https://github.com/ssnob/T7-Compiler-UI/blob/main/UI.png)
