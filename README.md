@@ -19,4 +19,4 @@ serious
 Icons created by Smashicons
 https://www.flaticon.com/free-icons/document
 
-![Screenshot](https://github.com/ssnob/T7-Compiler-UI/blob/main/Github/UI.png)
+![Screenshot](https://github.com/ssnob/T7-Compiler-UI/blob/main/UI.png)
