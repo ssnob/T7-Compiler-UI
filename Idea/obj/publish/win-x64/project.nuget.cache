@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2k3uKOt06IG/QT7gYb0fg8BRzR0WPfIutN1bO7vi64fa3wZBhW9Zl3ZAjJHU4KCu8VFe7jHxjpH6BfDKNEJoFg==",
+  "dgSpecHash": "UHS/QNxEHhP1ieRoyKNW9jF5Xg4tPEh/7gi1D9jmkzKdD4cNgd+JDrq8zRxcrWZhGpnGZ970VhTZ2fuluEHkZg==",
   "success": true,
-  "projectFilePath": "E:\\Backup\\Code\\C#\\TEmpl\\Idea\\Idea.csproj",
+  "projectFilePath": "E:\\Backup\\Code\\C#\\T7-Compiler-UI\\Idea\\Idea.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\troll\\.nuget\\packages\\avalonedit\\6.1.3.50\\avalonedit.6.1.3.50.nupkg.sha512",
     "C:\\Users\\troll\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\3.1.23\\microsoft.netcore.app.runtime.win-x64.3.1.23.nupkg.sha512",

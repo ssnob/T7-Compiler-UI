@@ -91,7 +91,7 @@ namespace Idea.Actions
 
             Directory.Delete(installertemp, true);
 
-            MessageBox.Show("Compile Updated/Installed", "Sucess", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Compiler Updated/Installed", "Sucess", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         public static void CompileScript(string path, GAMES game, GAMEMODE gamemode, bool folderselected)
         {
