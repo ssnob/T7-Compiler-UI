@@ -1,0 +1,26 @@
+﻿<Window x:Class="Idea.Porter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:Idea"
+        xmlns:local="clr-namespace:Idea"
+        mc:Ignorable="d"
+        Title="Port IL Project" 
+        Height="170.5" 
+        Width="400" 
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize" 
+        WindowStyle="ToolWindow"
+        Style="{DynamicResource CustomWindowNOForceClose}">
+    <Grid>
+        <Label x:Name="PortPro" Content="IL Project" HorizontalAlignment="Left" Margin="98,32,0,0" VerticalAlignment="Top"/>
+        <Button Content="Select IL Project" Cursor="Arrow" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Click="SelectILProject"/>
+        <Rectangle HorizontalAlignment="Left" Height="1" Margin="10,59,0,0" Stroke="White" VerticalAlignment="Top" Width="136"/>
+        <Label x:Name="OutPut" Content="Output Folder" HorizontalAlignment="Left" Margin="121,0,0,0" VerticalAlignment="Center"/>
+        <Button Content="Select Output Folder" Cursor="Arrow" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Click="SelectOutputFolder"/>
+        <Button Content="Port" Cursor="Arrow" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="280" Click="PortBegin"/>
+        <Button Content="Cancel" Cursor="Arrow" HorizontalAlignment="Left" Margin="295,110,0,0" VerticalAlignment="Top" Width="93" Click="HidePortWindow"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "2k3uKOt06IG/QT7gYb0fg8BRzR0WPfIutN1bO7vi64fa3wZBhW9Zl3ZAjJHU4KCu8VFe7jHxjpH6BfDKNEJoFg==",
+  "success": true,
+  "projectFilePath": "E:\\Backup\\Code\\C#\\TEmpl\\Idea\\Idea.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\troll\\.nuget\\packages\\avalonedit\\6.1.3.50\\avalonedit.6.1.3.50.nupkg.sha512",
+    "C:\\Users\\troll\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\3.1.23\\microsoft.netcore.app.runtime.win-x64.3.1.23.nupkg.sha512",
+    "C:\\Users\\troll\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\3.1.23\\microsoft.windowsdesktop.app.runtime.win-x64.3.1.23.nupkg.sha512",
+    "C:\\Users\\troll\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\3.1.23\\microsoft.aspnetcore.app.runtime.win-x64.3.1.23.nupkg.sha512"
+  ],
+  "logs": []
+}

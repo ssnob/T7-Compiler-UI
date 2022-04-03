@@ -1,9 +1,0 @@
-T7/T8 Compiler version 3.0.2.0, by Serious
-Checking client version... (our version is 3000000020000)
-697.6963 ms compile time (excluding irony)
- -- 649.8474 ms to build the structure.
- -- 47.8489 ms to commit to binary.
-s_assetPool:ScriptParseTree => 00007FF66DDD9AB0
-	[scripts/shared/duplicaterender_mgr.gsc]: Injected
- If in game, you are probably going to crash.
----------------------------

@@ -1,0 +1,83 @@
+﻿<Window x:Class="Idea.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:Idea"
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        mc:Ignorable="d"
+        Closing="OnWindowClosing"
+        Title="Compiler UI" 
+        Height="900" 
+        Width="1600" 
+        MinHeight="600" 
+        MinWidth="800"
+        WindowStyle="SingleBorderWindow" 
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center"
+        Style="{DynamicResource CustomWindowStyle}">
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <StackPanel HorizontalAlignment="Stretch"
+        MinWidth="{Binding Path=ActualWidth, ElementName=parent}"
+        Orientation="Horizontal">
+            <Menu Width="1600" Height="24" VerticalAlignment="Top">
+                <MenuItem Header="File" Height="24">
+                    <MenuItem Header="_New Project" InputGestureText="Ctrl+Shift+N" Click="CreateNewFolder" ToolTip="Create a New Project | Ctrl+Shift+N"/>
+                    <MenuItem Header="_New File" InputGestureText="Ctrl+N" Click="CreateNewFile" ToolTip="Create a New File | Ctrl+N"/>
+                    <Separator Style="{DynamicResource MenuItemSeparator}"/>
+                    <MenuItem Header="_Open Folder" InputGestureText="Ctrl+O" Click="OpenFolder" ToolTip="Open folder | Ctrl+O"/>
+                    <Separator Style="{DynamicResource MenuItemSeparator}"/>
+                    <MenuItem Header="_Save" InputGestureText="Ctrl+S" ToolTip="Saves your current open document | Ctrl+S" Click="SaveTextItem"/>
+                    <MenuItem Header="_Save All" InputGestureText="Ctrl+Shift+S" ToolTip="Save all open editors | Ctrl+Shift+S" Click="SaveTextAllItems"/>
+                    <Separator Style="{DynamicResource MenuItemSeparator}"/>
+                    <MenuItem Header="_Refresh Files" InputGestureText="Ctrl+R" ToolTip="Refresh list (use if you edited a file via another program) | Ctrl+R" Click="RefList"/>
+                    <Separator Style="{DynamicResource MenuItemSeparator}"/>
+                    <MenuItem Header="_Port IL Project" InputGestureText="Ctrl+Shift+Alt+O" ToolTip="Port a IL Project | Ctrl+Shift+Alt+O" Click="PortILProj"/>
+                    <Separator Style="{DynamicResource MenuItemSeparator}"/>
+                    <MenuItem Header="About" Click="AboutOpen"/>
+                    <Separator Style="{DynamicResource MenuItemSeparator}"/>
+                    <MenuItem Header="_Exit" Click="CloseProgram"/>
+                </MenuItem>
+
+                <MenuItem Header="Game">
+                    <MenuItem x:Name="_BlackOps3Header" Header="Black Ops 3" IsCheckable="True" IsChecked="True" Click="SetGame"/>
+                    <MenuItem x:Name="_BlackOps4Header" Header="Black Ops 4" IsCheckable="True" Click="SetGame"/>
+                </MenuItem>
+
+                <MenuItem Header="Mode">
+                    <MenuItem x:Name="CampaignHeader" Header="Campaign" IsCheckable="True" Click="SetGameMode"/>
+                    <MenuItem x:Name="MultiplayerHeader" Header="Multiplayer" IsCheckable="True" Click="SetGameMode"/>
+                    <MenuItem x:Name="ZombiesHeader" Header="Zombies" IsCheckable="True" IsChecked="True" Click="SetGameMode"/>
+                </MenuItem>
+
+                <MenuItem Header="Inject Precompiled Script">
+                    <MenuItem Header="Black Ops 3" IsCheckable="false" Click="InjectPrecompiledScript"/>
+                    <MenuItem Header="Black Ops 4" IsCheckable="false" Click="InjectPrecompiledScript"/>
+                </MenuItem>
+
+                <MenuItem Header="Process's">
+                    <MenuItem Header="Kill Black Ops 3" Click="KillGame" ToolTip="Kills Game Process"/>
+                    <MenuItem Header="Kill Black Ops 4" Click="KillGame" ToolTip="Kills Game Process"/>
+                </MenuItem>
+            </Menu>
+        </StackPanel>
+
+        <Label x:Name="MenuOpened" Content="Menu Name" Margin="10,0,0,33" FontSize="11" Cursor="Arrow" IsHitTestVisible="False" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <StackPanel x:Name="Scripts" Margin="10,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="160" Height="787">
+            <Grid x:Name="BTNS" Margin="10,30,0,0" Width="160" Height="787" VerticalAlignment="Top" HorizontalAlignment="Left">
+                
+            </Grid>
+        </StackPanel>
+
+
+        <avalonEdit:TextEditor x:Name="Editor" Margin="181,30,10,10" Background="#FF2D2D2D" Foreground="White" BorderBrush="AliceBlue" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" IsReadOnly="True" />
+
+        <TabControl x:Name="OpenEditors" Margin="182,30,10,10" Visibility="Hidden">
+        </TabControl>
+
+        <Button x:Name="CompileBTN" Content="Compile" Cursor="Arrow" Click="CompileMenu" Margin="10,0,0,10" HorizontalAlignment="Left" Width="160" VerticalAlignment="Bottom" Height="23"/>
+
+    </Grid>
+</Window>

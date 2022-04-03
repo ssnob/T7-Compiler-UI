@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LastSelectedProfileId>E:\Backup\Code\C#\TEmpl\Idea\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="About.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="DropDownMenu.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="NewFile.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Porter.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="About.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="DropDownMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Main.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="NewFile.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Porter.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>
