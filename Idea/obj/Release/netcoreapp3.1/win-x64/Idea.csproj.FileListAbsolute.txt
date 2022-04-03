@@ -524,3 +524,4 @@ E:\Backup\Code\C#\TEmpl\Idea\bin\Release\netcoreapp3.1\win-x64\Defaults\defaultt
 E:\Backup\Code\C#\TEmpl\Idea\bin\Release\netcoreapp3.1\win-x64\mscordaccore_amd64_amd64_4.700.22.11601.dll
 E:\Backup\Code\C#\TEmpl\Idea\obj\Release\netcoreapp3.1\win-x64\Porter.g.cs
 E:\Backup\Code\C#\TEmpl\Idea\obj\Release\netcoreapp3.1\win-x64\Porter.baml
+E:\Backup\Code\C#\TEmpl\Idea\obj\Release\netcoreapp3.1\win-x64\Idea_Content.g.cs

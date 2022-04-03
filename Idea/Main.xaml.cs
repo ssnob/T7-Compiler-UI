@@ -60,6 +60,8 @@ namespace Idea
         {
             // log unhandled exceptions
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            if (!Directory.Exists("c:\\t7compiler"))
+                Compiler.InstallCompiler(@"https://gsc.dev/t7c_package");
 
             AllocConsole(); // we allocate a console to read the compilers output
             ShowWindow(GetConsoleWindow(), 0); // use 1 to show console
@@ -1109,6 +1111,15 @@ namespace Idea
         private void RefList(object sender, RoutedEventArgs e)
         {
             refreshList(false);
+        }
+
+        private void UpdateComp(object sender, RoutedEventArgs e)
+        {
+            
+            if (Directory.Exists("c:\\t7compiler"))
+                Directory.Delete("c:\\t7compiler", true);
+
+            Compiler.InstallCompiler(@"https://gsc.dev/t7c_package");
         }
     }
 }

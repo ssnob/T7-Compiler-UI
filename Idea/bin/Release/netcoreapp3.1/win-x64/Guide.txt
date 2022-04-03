@@ -1,0 +1,29 @@
+﻿/*
+Compiler UI - ssno
+Compiler - serious
+
+HOW TO:
+	* Inject a precompiled script:
+						Select Inject Precompiled Script in the Menubar at the top
+						Select Bo3/Bo4
+	* Create a new project:
+						CTRL + SHIFT + N or File->New Project in the Menubar
+	* Open an existing project:
+						CTRL + O or File->Open Folder in the MenuBar
+	* Creating a new project:	
+						CTRL + N or File->New Project in the MenuBar
+	* Port an IL Project:
+						File->Port IL Project (Recommened if you are using an IL Project, otherwise: it may not work at all)
+
+	* How to:
+						What you will see when you open the UI is the default project for Black Ops 3: 
+						Everytime you create a new project, it will always startout as the default one and this will be
+						based on the selected game you have (it will default to be Black Ops 3)
+						
+						From there you can select another menu via File->Open Folder (make sure the scripts you want to compile are in a subfolder called scripts
+						this is also required inorder to use the editor, it will only pickup files within the scripts folder)
+						
+						Select your game, gamemode and hit compile: if you get an error make sure you are injecting for the correct game
+						
+						
+*/

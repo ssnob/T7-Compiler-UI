@@ -78,7 +78,7 @@ namespace Idea {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Idea;component/dropdownmenu.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Idea;V1.0.0.0;component/dropdownmenu.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\DropDownMenu.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

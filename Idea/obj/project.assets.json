@@ -52,11 +52,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Backup\\Code\\C#\\TEmpl\\Idea\\Idea.csproj",
+      "projectUniqueName": "E:\\Backup\\Code\\C#\\T7-Compiler-UI\\Idea\\Idea.csproj",
       "projectName": "Idea",
-      "projectPath": "E:\\Backup\\Code\\C#\\TEmpl\\Idea\\Idea.csproj",
+      "projectPath": "E:\\Backup\\Code\\C#\\T7-Compiler-UI\\Idea\\Idea.csproj",
       "packagesPath": "C:\\Users\\troll\\.nuget\\packages\\",
-      "outputPath": "E:\\Backup\\Code\\C#\\TEmpl\\Idea\\obj\\",
+      "outputPath": "E:\\Backup\\Code\\C#\\T7-Compiler-UI\\Idea\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

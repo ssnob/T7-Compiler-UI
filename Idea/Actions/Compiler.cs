@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -47,7 +49,50 @@ namespace Idea.Actions
             }
             return null;
         }
+        public static void InstallCompiler(string url)
+        {
+            Process[] debugcompiler = Process.GetProcessesByName("debugcompiler");
+            for (int i = 0; i < debugcompiler.Length; i++)
+                try { debugcompiler[i].Kill(); } catch { }
 
+            Process[] bo3 = Process.GetProcessesByName("blackops3");
+            for (int i = 0; i < debugcompiler.Length; i++)
+                try { debugcompiler[i].Kill(); } catch { }
+
+            Process[] bo4 = Process.GetProcessesByName("blackops4");
+            for (int i = 0; i < debugcompiler.Length; i++)
+                try { debugcompiler[i].Kill(); } catch { }
+
+            var usertemp = Path.GetTempPath();
+            var installertemp = usertemp + "\\installer_temp";
+            var extractpath = usertemp + "update_t7.zip";
+            var compileFolder = "c:\\t7compiler";
+
+            if (Directory.Exists(extractpath))
+                Directory.Delete(extractpath, true);
+
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile(url, extractpath);
+            }
+
+            if (Directory.Exists(installertemp))
+                Directory.Delete(installertemp, true);
+
+
+            ZipFile.ExtractToDirectory(extractpath, installertemp);
+
+            if (Directory.Exists(compileFolder))
+                return;
+
+            FileHelper.CopyDirectory(installertemp + "\\t7compiler", "c:\\t7compiler", true);
+            FileHelper.CopyDirectory(installertemp + "\\defaultproject", "c:\\t7compiler\\defaultproject", true);
+            // cleanup
+
+            Directory.Delete(installertemp, true);
+
+            MessageBox.Show("Compile Updated/Installed", "Sucess", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
         public static void CompileScript(string path, GAMES game, GAMEMODE gamemode, bool folderselected)
         {
 
@@ -115,35 +160,35 @@ namespace Idea.Actions
                         return;
                     }
                     break;
-            }
+        }
 
-            File.WriteAllText(path + @"\compile.bat", "cd /d " + path.Replace(@"/", @"\") + "\nC:\\t7compiler\\debugcompiler --build");
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-
-
-            startInfo.FileName = path + @"\compile.bat";
-            startInfo.UseShellExecute = false;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+        File.WriteAllText(path + @"\compile.bat", "cd /d " + path.Replace(@"/", @"\") + "\nC:\\t7compiler\\debugcompiler --build");
+        ProcessStartInfo startInfo = new ProcessStartInfo();
 
 
-            Process proc = Process.Start(startInfo);
-            try
+        startInfo.FileName = path + @"\compile.bat";
+        startInfo.UseShellExecute = false;
+        startInfo.RedirectStandardOutput = true;
+        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+
+        Process proc = Process.Start(startInfo);
+        try
+        {
+            System.Threading.Thread.Sleep(3760); // if you have a better way of doing this please let me know
+            foreach (var process in Process.GetProcessesByName("debugcompiler"))
             {
-                System.Threading.Thread.Sleep(3760); // if you have a better way of doing this please let me know
-                foreach (var process in Process.GetProcessesByName("debugcompiler"))
-                {
-                    process.Kill();
-                }
+                process.Kill();
             }
-            catch { }
+        }
+        catch { }
 
 
-            string info = "";
-            info = proc.StandardOutput.ReadToEnd();
-            proc.WaitForExit();
+        string info = "";
+        info = proc.StandardOutput.ReadToEnd();
+        proc.WaitForExit();
 
-            #region replacespam
+        #region replacespam
             info = info.Replace(Environment.CurrentDirectory, "");
             info = info.Replace(path, "");
             info = info.Replace(">cd /d", "");
@@ -156,46 +201,45 @@ namespace Idea.Actions
             #endregion
 
 
-            var finalresult = Regex.Replace(info, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
+        var finalresult = Regex.Replace(info, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
 
-            if (finalresult.Contains("If in game, you are probably going to crash.") || finalresult.Contains("_assetPool:ScriptParseTree =>"))
+        if (finalresult.Contains("If in game, you are probably going to crash.") || finalresult.Contains("_assetPool:ScriptParseTree =>"))
+        {
+            bool bo3found = false;
+            bool bo4found = false;
+
+            var proc1 = Process.GetProcessesByName("blackops3");
+            foreach (var p in proc1)
             {
-                bool bo3found = false;
-                bool bo4found = false;
-
-                var proc1 = Process.GetProcessesByName("blackops3");
-                foreach (var p in proc1)
-                {
-                    if (p.Id > 0)
-                        bo3found = true;
-                }
-
-                var proc2 = Process.GetProcessesByName("blackops4");
-                foreach (var p in proc2)
-                {
-                    if (p.Id > 0)
-                        bo4found = true;
-                }
-
-                if (bo3found)
-                {
-                    WindowHelper.BringProcessToFront(Process.GetProcessesByName("blackops3"));
-                    BlackOps3.Popup($"^2{menu}\n^7Injected Succesfully - ^9{GetGamemode(gamemode)}");
-                }
-
-                if (bo4found)
-                {
-                    WindowHelper.BringProcessToFront(Process.GetProcessesByName("blackops4"));
-                    BlackOps4.Popup($"^2{menu}\n^7Injected Succesfully - ^9{GetGamemode(gamemode)}");
-                }
-
+                if (p.Id > 0)
+                    bo3found = true;
             }
-            else
-                MessageBox.Show(finalresult, "Result", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
-            Console.WriteLine(info);
+            var proc2 = Process.GetProcessesByName("blackops4");
+            foreach (var p in proc2)
+            {
+                if (p.Id > 0)
+                    bo4found = true;
+            }
+
+            if (bo3found)
+            {
+                WindowHelper.BringProcessToFront(Process.GetProcessesByName("blackops3"));
+                BlackOps3.Popup($"^2{menu}\n^7Injected Succesfully - ^9{GetGamemode(gamemode)}");
+            }
+
+            if (bo4found)
+            {
+                WindowHelper.BringProcessToFront(Process.GetProcessesByName("blackops4"));
+                BlackOps4.Popup($"^2{menu}\n^7Injected Succesfully - ^9{GetGamemode(gamemode)}");
+            }
+
         }
+        else
+            MessageBox.Show(finalresult, "Result", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
+        Console.WriteLine(info);
+        }
         public static void InjectScript(string path, GAMES game)
         {
             if (!Directory.Exists("c:\\t7compiler"))
