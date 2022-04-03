@@ -72,7 +72,7 @@ namespace T7Installer
             ZipFile.ExtractToDirectory(extractpath, installertemp);
 
             if (Directory.Exists(compileFolder))
-                return;
+                Directory.Delete(compileFolder, true);
 
             CopyDirectory(installertemp + "\\t7compiler", "c:\\t7compiler", true);
             CopyDirectory(installertemp + "\\defaultproject", "c:\\t7compiler\\defaultproject", true);
@@ -141,8 +141,8 @@ namespace T7Installer
                 if (Directory.Exists(InstallLocation))
                     Directory.Delete(InstallLocation, true);
 
-                InstallUI("https://ssnob.github.io/compiler.zip");
                 Console.WriteLine("Installing.");
+                InstallUI("https://ssnob.github.io/compiler.zip");
                 InstallCompiler("https://gsc.dev/t7c_package");
                 Console.WriteLine("Complete.");
             }
