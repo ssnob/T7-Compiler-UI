@@ -16,7 +16,6 @@ namespace Idea
     {
         private void CloseWindow_Event(object sender, RoutedEventArgs e)
         {
-
             Process[] debugcompiler = Process.GetProcessesByName("debugcompiler");
             try { debugcompiler[0].Kill(); } catch { }
 

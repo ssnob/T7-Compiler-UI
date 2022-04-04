@@ -17,6 +17,8 @@ using System.Windows.Threading;
 using ICSharpCode.AvalonEdit.Search;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using System.ComponentModel;
+using DiscordRPC;
+using Button = System.Windows.Controls.Button;
 
 namespace Idea
 {
@@ -42,6 +44,10 @@ namespace Idea
         string selectedtabItem = string.Empty;
         string filename = string.Empty;
 
+        string gamemode = string.Empty;
+        string game = string.Empty; // deciding if i want to put this in the presense or not
+        public DiscordRpcClient Client = new DiscordRpcClient("960318815760162876"); 
+
         #region Imports
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -54,7 +60,6 @@ namespace Idea
         [DllImport("user32.dll")]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
         #endregion
-
 
         public Main()
         {
@@ -140,12 +145,20 @@ namespace Idea
             saveTimer.Interval = TimeSpan.FromMilliseconds(200);
             saveTimer.Tick += delegate { forcesave(); };
             saveTimer.Start();
+
+            // update presense
+            Client.Initialize();
+            DispatcherTimer updatePresense = new DispatcherTimer();
+            updatePresense.Interval = TimeSpan.FromMilliseconds(200);
+            updatePresense.Tick += delegate { updatepresense(); };
+            updatePresense.Start();
             // default to black ops 3 zombies
 
             CampaignHeader.IsChecked = false;
             MultiplayerHeader.IsChecked = false;
             ZombiesHeader.IsChecked = true;
             GAME_MODE = GAMEMODE.ZOMBIES;
+            gamemode = "Zm";
 
             _BlackOps4Header.IsChecked = false;
             _BlackOps3Header.IsChecked = true;
@@ -208,8 +221,8 @@ namespace Idea
             Process[] injector = Process.GetProcessesByName("idea");
             try { injector[0].Kill(); } catch { }
 
+            Client.Dispose(); // safely disconnect from discord
             Environment.Exit(0);
-
         }
 
         public void CloseWind(Window window) => OnWindowClosing(null, null);
@@ -230,6 +243,7 @@ namespace Idea
             Process[] injector = Process.GetProcessesByName("Idea");
             try { injector[0].Kill(); } catch { }
 
+            Client.Dispose(); // safely disconnect from discord
             CloseWind(GetWindow((FrameworkElement)e.Source));
         }
 
@@ -269,16 +283,19 @@ namespace Idea
                     GAME_MODE = GAMEMODE.CAMPAIGN;
                     MultiplayerHeader.IsChecked = false;
                     ZombiesHeader.IsChecked = false;
+                    gamemode = "Sp";
                     break;
                 case "Multiplayer":
                     GAME_MODE = GAMEMODE.MULTIPLAYER;
                     CampaignHeader.IsChecked = false;
                     ZombiesHeader.IsChecked = false;
+                    gamemode = "Mp";
                     break;
                 case "Zombies":
                     GAME_MODE = GAMEMODE.ZOMBIES;
                     CampaignHeader.IsChecked = false;
                     MultiplayerHeader.IsChecked = false;
+                    gamemode = "Zm";
                     break;
             }
         }
@@ -848,7 +865,22 @@ namespace Idea
 
             }
         }
-
+        private void updatepresense()
+        {
+            RichPresence presence = new RichPresence()
+            {
+                Details = $"{(string)MenuOpened.Content} | {(string)gamemode}",
+                State = $"Editing {selectedtabItem}",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "file",
+                    LargeImageText = (string)MenuOpened.Content,
+                    SmallImageKey = "file",
+                    SmallImageText = (string)gamemode,
+                }
+            };
+            Client.SetPresence(presence);
+        }
         private void SaveTextItem(object sender, ExecutedRoutedEventArgs e)
         {
             if (!infile) return;
@@ -938,14 +970,14 @@ namespace Idea
                         case GAMES.BLACKOPS3:
                             Directory.CreateDirectory(dialog.FileName);
                             Directory.CreateDirectory(dialog.FileName + "\\scripts");
-                            File.Copy(Environment.CurrentDirectory + "\\defaultt7project.main", dialog.FileName + "\\scripts\\main.gsc");
-                            File.Copy(Environment.CurrentDirectory + "\\defaultt7project.headers", dialog.FileName + "\\scripts\\headers.gsc");
+                            File.Copy(Environment.CurrentDirectory + "\\Defaults\\defaultt7project.main", dialog.FileName + "\\scripts\\main.gsc");
+                            File.Copy(Environment.CurrentDirectory + "\\Defaults\\defaultt7project.headers", dialog.FileName + "\\scripts\\headers.gsc");
                             break;
                         case GAMES.BLACKOPS4:
                             Directory.CreateDirectory(dialog.FileName);
                             Directory.CreateDirectory(dialog.FileName + "\\scripts");
-                            File.Copy(Environment.CurrentDirectory + "\\defaultt8project.main", dialog.FileName + "\\scripts\\main.gsc");
-                            File.Copy(Environment.CurrentDirectory + "\\defaultt8project.headers", dialog.FileName + "\\scripts\\headers.gsc");
+                            File.Copy(Environment.CurrentDirectory + "\\Defaults\\defaultt8project.main", dialog.FileName + "\\scripts\\main.gsc");
+                            File.Copy(Environment.CurrentDirectory + "\\Defaults\\defaultt8project.headers", dialog.FileName + "\\scripts\\headers.gsc");
                             break;
                     }
 
@@ -988,23 +1020,34 @@ namespace Idea
                         var filename = gscfile.Substring(gscfile.LastIndexOf('\\') + 1);
                         if (filename.EndsWith(".gsc") || filename.EndsWith(".txt"))
                         {
+                            var removeafter = ".gsc";
+                            var sorted = filename.Substring(filename.IndexOf(removeafter) + removeafter.Length).Replace(' ', '_');
+
+                            Grid gridD = new Grid();
                             Button filebutton = new Button();
-                            Scripts.Children.Add(filebutton);
+                            Button xbtn = new Button();
+                            Scripts.Children.Add(gridD);
+                            gridD.Children.Add(filebutton);
+                            gridD.Children.Add(xbtn);
+
                             filebutton.Height = 23;
                             filebutton.Background = null;
-                            filebutton.Cursor = Cursors.Arrow;
-                            filebutton.Content = filename;
-                            filebutton.VerticalAlignment = VerticalAlignment.Top;
-                            filebutton.HorizontalAlignment = HorizontalAlignment.Left;
-                            filebutton.Width = 160;
-
-
-                            var removeafter = ".gsc";
-                            var sorted = filename.Substring(filename.IndexOf(removeafter) + removeafter.Length);
+                            filebutton.Cursor = Cursors.Hand;
+                            filebutton.Content = filename.Replace(' ', '_');
+                            filebutton.Click += Filebutton_Click;
+                            filebutton.TabIndex = i;
+                            xbtn.HorizontalAlignment = HorizontalAlignment.Right;
+                            xbtn.Content = "X";
+                            xbtn.Click += Xbtn_Click;
+                            xbtn.MouseEnter += Xbtn_MouseEnter;
+                            xbtn.MouseLeave += Xbtn_MouseLeave;
+                            xbtn.Width = 20;
+                            xbtn.TabIndex = i;
+                            xbtn.Name = filename.Replace(".gsc", null).Replace(".txt", null).Replace(".txt", null).Replace(' ', '_');
 
                             TabItem newTabItem = new TabItem
                             {
-                                Header = filename,
+                                Header = filename.Replace(' ', '_'),
                                 Name = sorted.Replace(".txt", ""),
                             };
                             TextEditor textedit = new TextEditor();
@@ -1014,7 +1057,10 @@ namespace Idea
                             textedit.ShowLineNumbers = true;
                             textedit.TextArea.TextEntered += textEditor_TextArea_TextEntered;
                             textedit.Foreground = new SolidColorBrush(Color.FromRgb(225, 225, 225));
-                            textedit.Name = filename.Replace(".gsc", null);
+
+
+                            textedit.Name = filename.Replace(".gsc", null).Replace(".txt", null).Replace(".txt", null).Replace(' ', '_');
+
 
                             if (!haveweinstalled)
                             {

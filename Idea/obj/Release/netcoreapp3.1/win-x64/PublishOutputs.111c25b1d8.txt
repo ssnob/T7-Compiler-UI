@@ -493,6 +493,8 @@ E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\publish\UIAutoma
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\publish\WindowsBase.dll
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\publish\WindowsFormsIntegration.dll
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\publish\ICSharpCode.AvalonEdit.dll
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\publish\DiscordRPC.dll
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\publish\Newtonsoft.Json.dll
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\publish\External.dll
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\publish\Microsoft.WindowsAPICodePack.dll
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\publish\Microsoft.WindowsAPICodePack.Shell.dll

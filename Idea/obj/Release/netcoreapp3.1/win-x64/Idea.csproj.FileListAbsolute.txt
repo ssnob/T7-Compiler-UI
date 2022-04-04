@@ -1052,3 +1052,5 @@ E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\win-x64\Idea.csp
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\win-x64\Idea.dll
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\win-x64\Idea.pdb
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\win-x64\Idea.genruntimeconfig.cache
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\win-x64\DiscordRPC.dll
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\win-x64\Newtonsoft.Json.dll

@@ -82,7 +82,6 @@ namespace T7Installer
 
             Directory.Delete(installertemp, true);
         }
-
         static private void InstallUI(string url)
         {
             Process[] debugcompiler = Process.GetProcessesByName("debugcompiler");
@@ -142,6 +141,7 @@ namespace T7Installer
                     Directory.Delete(InstallLocation, true);
 
                 Console.WriteLine("Installing.");
+                
                 InstallUI("https://ssnob.github.io/compiler.zip");
                 InstallCompiler("https://gsc.dev/t7c_package");
                 Console.WriteLine("Complete.");
