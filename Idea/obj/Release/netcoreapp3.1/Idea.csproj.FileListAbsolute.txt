@@ -3,12 +3,6 @@ E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Defaults\default
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Defaults\defaultt8project.headers
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Defaults\defaultt8project.main
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Guide.txt
-E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Idea.exe
-E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Idea.deps.json
-E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Idea.runtimeconfig.json
-E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Idea.runtimeconfig.dev.json
-E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Idea.dll
-E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Idea.pdb
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\ICSharpCode.AvalonEdit.dll
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\DiscordRPC.dll
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Newtonsoft.Json.dll
@@ -21,28 +15,33 @@ E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\External.pdb
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Microsoft.WindowsAPICodePack.pdb
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Microsoft.WindowsAPICodePack.Shell.pdb
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Microsoft.WindowsAPICodePack.ShellExtensions.pdb
-E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea.csproj.AssemblyReference.cache
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\About.g.cs
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\DropDownMenu.g.cs
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Main.g.cs
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\NewFile.g.cs
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Porter.g.cs
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\App.g.cs
-E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea_Content.g.cs
-E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea_MarkupCompile.cache
-E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea_MarkupCompile.lref
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\App.baml
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\About.baml
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\DropDownMenu.baml
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Main.baml
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\NewFile.baml
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Porter.baml
-E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea.g.resources
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea.GeneratedMSBuildEditorConfig.editorconfig
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea.AssemblyInfoInputs.cache
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea.AssemblyInfo.cs
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea.csproj.CoreCompileInputs.cache
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea.csproj.CopyComplete
-E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea.dll
-E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea.pdb
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea.genruntimeconfig.cache
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Compiler UI.exe
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Compiler UI.deps.json
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Compiler UI.runtimeconfig.json
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Compiler UI.runtimeconfig.dev.json
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Compiler UI.dll
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\bin\Release\netcoreapp3.1\Compiler UI.pdb
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Compiler UI_Content.g.cs
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Compiler UI_MarkupCompile.cache
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Compiler UI_MarkupCompile.lref
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Compiler UI.g.resources
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Compiler UI.dll
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Compiler UI.pdb

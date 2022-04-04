@@ -71,12 +71,12 @@ namespace Idea
                 Compiler.InstallCompiler(@"https://gsc.dev/t7c_package");
 
             AllocConsole(); // we allocate a console to read the compilers output
-            #if DEBUG
+#if DEBUG
             ShowWindow(GetConsoleWindow(), 1);
-            #endif
-            #if !DEBUG
+#endif
+#if !DEBUG
             ShowWindow(GetConsoleWindow(), 0); ShowWindow(GetConsoleWindow(), 0);
-            #endif
+#endif
             InitializeComponent();
 
             // setup our syntax
@@ -171,21 +171,27 @@ namespace Idea
             GAME = GAMES.BLACKOPS3;
 
             // Create Default Project 
+            try
+            {
+                var scripts = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)\\scripts";
 
-            var scripts = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)\\scripts";
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)");
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)\\scripts");
+                if (!File.Exists(scripts + "\\main.gsc"))
+                    File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt7project.main", scripts + "\\main.gsc");
+                if (!File.Exists(scripts + "\\headers.gsc"))
+                    File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt7project.headers", scripts + "\\headers.gsc");
 
-            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)");
-            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)\\scripts");
-            if (!File.Exists(scripts + "\\main.gsc"))
-                File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt7project.main", scripts + "\\main.gsc");
-            if (!File.Exists(scripts + "\\headers.gsc"))
-                File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt7project.headers", scripts + "\\headers.gsc");
+                // loadup default project
 
-            // loadup default project
-            OpenFolder(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)");
-            folderopened = true;
-            infile = true;
-
+                OpenFolder(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)");
+                folderopened = true;
+                infile = true;
+            }
+            catch
+            {
+                MessageBox.Show("Default Project Failed to open", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
             // set default size & position
             this.Width = 1280;
             this.Height = 720;
@@ -194,8 +200,9 @@ namespace Idea
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            var ex = e.ExceptionObject as Exception;
             // Log the exception
-            File.WriteAllText(Environment.CurrentDirectory + "\\log.txt", (e.ExceptionObject as Exception).Message);
+            File.WriteAllText(Environment.CurrentDirectory + "\\log.txt", $"Source:{ex.Source}\nMessage:{ex.Message}\nException:{ex.InnerException}\n---------Stack Trace---------\n{ex.StackTrace}\n");
 
             if ((e.ExceptionObject as Exception).Message.Contains("is not a valid value for property"))
             {

@@ -8,7 +8,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "E:\\Backup\\Code\\C#\\T7-Compiler-UI\\Idea\\Idea.csproj",
-        "projectName": "Idea",
+        "projectName": "Compiler UI",
         "projectPath": "E:\\Backup\\Code\\C#\\T7-Compiler-UI\\Idea\\Idea.csproj",
         "packagesPath": "C:\\Users\\troll\\.nuget\\packages\\",
         "outputPath": "E:\\Backup\\Code\\C#\\T7-Compiler-UI\\Idea\\obj\\",

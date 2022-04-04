@@ -55,4 +55,3 @@ E:\Backup\Code\C#\T7-Compiler-UI\T7Installer\bin\netcoreapp3.1\T7Installer.dll
 E:\Backup\Code\C#\T7-Compiler-UI\T7Installer\bin\netcoreapp3.1\T7Installer.pdb
 E:\Backup\Code\C#\T7-Compiler-UI\T7Installer\bin\netcoreapp3.1\Interop.IWshRuntimeLibrary.dll
 E:\Backup\Code\C#\T7-Compiler-UI\T7Installer\bin\netcoreapp3.1\Interop.Shell32.dll
-E:\Backup\Code\C#\T7-Compiler-UI\T7Installer\obj\Release\netcoreapp3.1\T7Installer.csproj.AssemblyReference.cache
