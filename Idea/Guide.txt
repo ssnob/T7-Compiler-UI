@@ -13,7 +13,9 @@ HOW TO:
 	* Creating a new project:	
 						CTRL + N or File->New Project in the MenuBar
 	* Port an IL Project:
-						File->Port IL Project (Recommened if you are using an IL Project, otherwise: it may not work at all)
+						File->Port IL Project (If you are trying to use an Infinity Loader Project you should port it first
+						For the first Select Folder button you want to select the IL Project; for the second one select a empty or new folder
+						This will be were it ports it
 
 	* How to:
 						What you will see when you open the UI is the default project for Black Ops 3: 
