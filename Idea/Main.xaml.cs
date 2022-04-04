@@ -19,6 +19,8 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using System.ComponentModel;
 using DiscordRPC;
 using Button = System.Windows.Controls.Button;
+using System.Reflection;
+using System.Net;
 
 namespace Idea
 {
@@ -46,7 +48,7 @@ namespace Idea
 
         string gamemode = string.Empty;
         string game = string.Empty; // deciding if i want to put this in the presense or not
-        public DiscordRpcClient Client = new DiscordRpcClient("960318815760162876"); 
+        public DiscordRpcClient Client = new DiscordRpcClient("960318815760162876");
 
         #region Imports
 
@@ -69,8 +71,12 @@ namespace Idea
                 Compiler.InstallCompiler(@"https://gsc.dev/t7c_package");
 
             AllocConsole(); // we allocate a console to read the compilers output
-            ShowWindow(GetConsoleWindow(), 0); // use 1 to show console
-
+            #if DEBUG
+            ShowWindow(GetConsoleWindow(), 1);
+            #endif
+            #if !DEBUG
+            ShowWindow(GetConsoleWindow(), 0); ShowWindow(GetConsoleWindow(), 0);
+            #endif
             InitializeComponent();
 
             // setup our syntax

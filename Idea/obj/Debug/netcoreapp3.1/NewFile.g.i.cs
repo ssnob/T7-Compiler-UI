@@ -78,7 +78,7 @@ namespace Idea {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Idea;V1.0.0.0;component/newfile.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Idea;component/newfile.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\NewFile.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
