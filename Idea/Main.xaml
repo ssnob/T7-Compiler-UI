@@ -69,10 +69,9 @@
         <Label x:Name="MenuOpened" Content="Menu Name" Margin="10,0,0,33" FontSize="11" Cursor="Arrow" IsHitTestVisible="False" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <StackPanel x:Name="Scripts" Margin="10,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="160" Height="787">
             <Grid x:Name="BTNS" Margin="10,30,0,0" Width="160" Height="787" VerticalAlignment="Top" HorizontalAlignment="Left">
-                
+
             </Grid>
         </StackPanel>
-
 
         <avalonEdit:TextEditor x:Name="Editor" Margin="181,30,10,10" Background="#FF2D2D2D" Foreground="White" BorderBrush="AliceBlue" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" IsReadOnly="True" />
 
