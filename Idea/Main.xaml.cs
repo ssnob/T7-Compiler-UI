@@ -177,9 +177,9 @@ namespace Idea
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)");
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)\\scripts");
             if (!File.Exists(scripts + "\\main.gsc"))
-                File.Copy(Environment.CurrentDirectory + "\\Defaults\\defaultt7project.main", scripts + "\\main.gsc");
+                File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt7project.main", scripts + "\\main.gsc");
             if (!File.Exists(scripts + "\\headers.gsc"))
-                File.Copy(Environment.CurrentDirectory + "\\Defaults\\defaultt7project.headers", scripts + "\\headers.gsc");
+                File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt7project.headers", scripts + "\\headers.gsc");
 
             // loadup default project
             OpenFolder(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)");
@@ -976,14 +976,14 @@ namespace Idea
                         case GAMES.BLACKOPS3:
                             Directory.CreateDirectory(dialog.FileName);
                             Directory.CreateDirectory(dialog.FileName + "\\scripts");
-                            File.Copy(Environment.CurrentDirectory + "\\Defaults\\defaultt7project.main", dialog.FileName + "\\scripts\\main.gsc");
-                            File.Copy(Environment.CurrentDirectory + "\\Defaults\\defaultt7project.headers", dialog.FileName + "\\scripts\\headers.gsc");
+                            File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\Defaults\defaultt7project.main", dialog.FileName + "\\scripts\\main.gsc");
+                            File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt7project.headers", dialog.FileName + "\\scripts\\headers.gsc");
                             break;
                         case GAMES.BLACKOPS4:
                             Directory.CreateDirectory(dialog.FileName);
                             Directory.CreateDirectory(dialog.FileName + "\\scripts");
-                            File.Copy(Environment.CurrentDirectory + "\\Defaults\\defaultt8project.main", dialog.FileName + "\\scripts\\main.gsc");
-                            File.Copy(Environment.CurrentDirectory + "\\Defaults\\defaultt8project.headers", dialog.FileName + "\\scripts\\headers.gsc");
+                            File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt8project.main", dialog.FileName + "\\scripts\\main.gsc");
+                            File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt8project.headers", dialog.FileName + "\\scripts\\headers.gsc");
                             break;
                     }
 
