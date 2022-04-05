@@ -1,10 +1,14 @@
+---
 # T7-Compiler-UI
 Ui for serious' compiler 
 
+```
 <p align="center">
   <img width="460" height="300" src="https://github.com/ssnob/T7-Compiler-UI/blob/main/Idea/Assets/logo.png">
 </p>
 
+```
+---
 # Compiler
 Compiler made by serious
 https://github.com/shiversoftdev
