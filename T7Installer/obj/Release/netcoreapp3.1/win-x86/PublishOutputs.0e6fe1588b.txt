@@ -1,2 +1,0 @@
-E:\Backup\Code\C#\Compiler Ui\bin\Release\netcoreapp3.1\T7Installer.pdb
-E:\Backup\Code\C#\Compiler Ui\bin\Release\netcoreapp3.1\T7Installer.exe

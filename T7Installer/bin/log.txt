@@ -1,1 +1,0 @@
-The invocation of the constructor on type 'Idea.Main' that matches the specified binding constraints threw an exception.
