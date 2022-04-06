@@ -47,7 +47,9 @@ namespace Idea
         string filename = string.Empty;
 
         string gamemode = string.Empty;
-        string game = string.Empty; // deciding if i want to put this in the presense or not
+        string game = string.Empty; 
+        
+        string executingdir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         public DiscordRpcClient Client = new DiscordRpcClient("960318815760162876");
 
         #region Imports
@@ -178,9 +180,9 @@ namespace Idea
                 Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)");
                 Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)\\scripts");
                 if (!File.Exists(scripts + "\\main.gsc"))
-                    File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt7project.main", scripts + "\\main.gsc");
+                    File.Copy(executingdir + @"\Defaults\defaultt7project.main", scripts + "\\main.gsc");
                 if (!File.Exists(scripts + "\\headers.gsc"))
-                    File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt7project.headers", scripts + "\\headers.gsc");
+                    File.Copy(executingdir + @"\Defaults\defaultt7project.headers", scripts + "\\headers.gsc");
 
                 // loadup default project
 
@@ -202,7 +204,7 @@ namespace Idea
         {
             var ex = e.ExceptionObject as Exception;
             // Log the exception
-            File.WriteAllText(Environment.CurrentDirectory + "\\log.txt", $"Source:{ex.Source}\nMessage:{ex.Message}\nException:{ex.InnerException}\n---------Stack Trace---------\n{ex.StackTrace}\n");
+            File.WriteAllText(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\log.txt", $"Source:{ex.Source}\nMessage:{ex.Message}\nException:{ex.InnerException}\n---------Stack Trace---------\n{ex.StackTrace}\n");
 
             if ((e.ExceptionObject as Exception).Message.Contains("is not a valid value for property"))
             {
@@ -231,10 +233,10 @@ namespace Idea
             Process[] debugcompiler = Process.GetProcessesByName("debugcompiler");
             try { debugcompiler[0].Kill(); } catch { }
 
-            Process[] injector = Process.GetProcessesByName("idea");
+            Client.Dispose(); // safely disconnect from discord
+            Process[] injector = Process.GetProcessesByName("compiler ui");
             try { injector[0].Kill(); } catch { }
 
-            Client.Dispose(); // safely disconnect from discord
             Environment.Exit(0);
         }
 
@@ -253,10 +255,10 @@ namespace Idea
             Process[] debugcompiler = Process.GetProcessesByName("debugcompiler");
             try { debugcompiler[0].Kill(); } catch { }
 
-            Process[] injector = Process.GetProcessesByName("Idea");
+            Client.Dispose(); // safely disconnect from discord
+            Process[] injector = Process.GetProcessesByName("compiler ui");
             try { injector[0].Kill(); } catch { }
 
-            Client.Dispose(); // safely disconnect from discord
             CloseWind(GetWindow((FrameworkElement)e.Source));
         }
 
@@ -267,7 +269,7 @@ namespace Idea
             switch (head.Header)
             {
                 default:
-                    _BlackOps3Header.IsChecked = false;
+                    _BlackOps3Header.IsChecked = true;
                     _BlackOps4Header.IsChecked = false;
                     break;
 
@@ -983,14 +985,14 @@ namespace Idea
                         case GAMES.BLACKOPS3:
                             Directory.CreateDirectory(dialog.FileName);
                             Directory.CreateDirectory(dialog.FileName + "\\scripts");
-                            File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\Defaults\defaultt7project.main", dialog.FileName + "\\scripts\\main.gsc");
-                            File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt7project.headers", dialog.FileName + "\\scripts\\headers.gsc");
+                            File.Copy(executingdir + @"\Defaults\defaultt7project.main", dialog.FileName + "\\scripts\\main.gsc");
+                            File.Copy(executingdir + @"\Defaults\defaultt7project.headers", dialog.FileName + "\\scripts\\headers.gsc");
                             break;
                         case GAMES.BLACKOPS4:
                             Directory.CreateDirectory(dialog.FileName);
                             Directory.CreateDirectory(dialog.FileName + "\\scripts");
-                            File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt8project.main", dialog.FileName + "\\scripts\\main.gsc");
-                            File.Copy(@"C:\Program Files (x86)\Compiler UI\win-x64\Defaults\defaultt8project.headers", dialog.FileName + "\\scripts\\headers.gsc");
+                            File.Copy(executingdir + @"\Defaults\defaultt8project.main", dialog.FileName + "\\scripts\\main.gsc");
+                            File.Copy(executingdir + @"\Defaults\defaultt8project.headers", dialog.FileName + "\\scripts\\headers.gsc");
                             break;
                     }
 

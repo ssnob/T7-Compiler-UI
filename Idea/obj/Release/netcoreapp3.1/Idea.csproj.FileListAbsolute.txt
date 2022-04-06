@@ -45,3 +45,4 @@ E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Compiler UI_Mark
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Compiler UI.g.resources
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Compiler UI.dll
 E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Compiler UI.pdb
+E:\Backup\Code\C#\T7-Compiler-UI\Idea\obj\Release\netcoreapp3.1\Idea.csproj.AssemblyReference.cache
