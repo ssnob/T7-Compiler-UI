@@ -59,7 +59,7 @@
                     <MenuItem Header="Black Ops 4" IsCheckable="false" Click="InjectPrecompiledScript"/>
                 </MenuItem>
 
-                <MenuItem Header="Processs">
+                <MenuItem Header="Proceses">
                     <MenuItem Header="Kill Black Ops 3" Click="KillGame" ToolTip="Kills Game Process"/>
                     <MenuItem Header="Kill Black Ops 4" Click="KillGame" ToolTip="Kills Game Process"/>
                 </MenuItem>

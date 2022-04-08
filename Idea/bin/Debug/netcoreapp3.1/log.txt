@@ -1,1 +1,0 @@
-'The invocation of the constructor on type 'Idea.Main' that matches the specified binding constraints threw an exception.' Line number '8' and line position '9'.
