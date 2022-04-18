@@ -33,5 +33,25 @@ namespace Idea.Helpers
                 }
             }
         }
+
+        static public long DirSize(string path)
+        {
+            long size = 0;
+            // Add file sizes.
+
+            DirectoryInfo INFO = new DirectoryInfo(path);
+            FileInfo[] fis = INFO.GetFiles();
+            foreach (FileInfo fi in fis)
+            {
+                size += fi.Length;
+            }
+            // Add subdirectory sizes.
+            DirectoryInfo[] dis = INFO.GetDirectories();
+            foreach (DirectoryInfo di in dis)
+            {
+                size += DirSize(di.ToString());
+            }
+            return size;
+        }
     }
 }

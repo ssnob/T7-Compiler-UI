@@ -21,6 +21,7 @@ using DiscordRPC;
 using Button = System.Windows.Controls.Button;
 using System.Reflection;
 using System.Net;
+using Idea.Games;
 
 namespace Idea
 {
@@ -47,8 +48,8 @@ namespace Idea
         string filename = string.Empty;
 
         string gamemode = string.Empty;
-        string game = string.Empty; 
-        
+        string game = string.Empty;
+
         string executingdir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         public DiscordRpcClient Client = new DiscordRpcClient("960318815760162876");
 
@@ -77,7 +78,7 @@ namespace Idea
             ShowWindow(GetConsoleWindow(), 1);
 #endif
 #if !DEBUG
-            ShowWindow(GetConsoleWindow(), 0); ShowWindow(GetConsoleWindow(), 0);
+            ShowWindow(GetConsoleWindow(), 0);
 #endif
             InitializeComponent();
 
@@ -202,6 +203,7 @@ namespace Idea
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            new Main().Client.Dispose(); // safely disconnect from discord
             var ex = e.ExceptionObject as Exception;
             // Log the exception
             File.WriteAllText(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\log.txt", $"Source:{ex.Source}\nMessage:{ex.Message}\nException:{ex.InnerException}\n---------Stack Trace---------\n{ex.StackTrace}\n");
@@ -259,6 +261,7 @@ namespace Idea
             Process[] injector = Process.GetProcessesByName("compiler ui");
             try { injector[0].Kill(); } catch { }
 
+            Client.Dispose(); // safely disconnect from discord
             CloseWind(GetWindow((FrameworkElement)e.Source));
         }
 
@@ -487,7 +490,7 @@ namespace Idea
             }
         }
 
-        private void OpenFolder(string __path)
+        public void OpenFolder(string __path)
         {
             if (!firstfileclick)
             {
@@ -499,6 +502,8 @@ namespace Idea
                 refreshList(false);
             }
 
+            if (__path == null) return;
+
             try
             {
                 if (haveweadded)
@@ -507,6 +512,19 @@ namespace Idea
             }
             catch { }
 
+            if (Helpers.FileHelper.DirSize(__path) > 5000000)
+            {
+                if (MessageBox.Show("This appears to be a large folder, continuing will destroy FOLDER STRUCTURE ARE YOU SURE WANT TO CONINUE?", "WARNING", MessageBoxButton.YesNo, MessageBoxImage.Error) != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+                var m = MessageBox.Show("Do you really wish to open this folder? IT WILL DESTROY YOUR FOLDER STRUCTURE", "WARNING", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                if (m != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+
+            } // 10+ mb
             folderopened = true;
             path = __path;
 
@@ -527,11 +545,32 @@ namespace Idea
                 Directory.CreateDirectory(scripts);
                 gscfiles = Directory.GetFiles(scripts);
             }
-            string[] directorys = Directory.GetDirectories(scripts);
+
             if (gscfiles == null) return;
 
             bool haveweinstalled = false;
             int i = 0;
+
+
+            foreach (string file in Directory.GetFiles(path))
+            {
+                if (file.Contains(".il"))
+                {
+                    var a = MessageBox.Show("This could be an Infinity Loader Project. Would you like to port it? (required)", "Error", MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                    if (a != MessageBoxResult.Yes)
+                    {
+                        MessageBox.Show("One project failed to load: (IL PROJECT)", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        OpenFolder(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)");
+                        folderopened = true;
+                        infile = true;
+                        return;
+                    }
+
+                    Porter.PortProject(path, "unknown");
+
+                }
+            }
 
             foreach (string gscfile in gscfiles)
             {
@@ -656,6 +695,20 @@ namespace Idea
                 dialog.InitialDirectory = "C:\\";
                 if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
+                    if (Helpers.FileHelper.DirSize(dialog.FileName) > 10000000)
+                    {
+                        if (MessageBox.Show("This appears to be a large folder, continuing will destroy FOLDER STRUCTURE ARE YOU SURE WANT TO CONINUE?", "WARNING", MessageBoxButton.YesNo, MessageBoxImage.Error) != MessageBoxResult.Yes)
+                        {
+                            return;
+                        }
+                        var m = MessageBox.Show("Do you really wish to open this folder? IT WILL DESTROY YOUR FOLDER STRUCTURE", "WARNING", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                        if (m != MessageBoxResult.Yes)
+                        {
+                            return;
+                        }
+
+                    } // 10+ mb
+
                     try
                     {
                         if (haveweadded)
@@ -674,6 +727,26 @@ namespace Idea
                     MoveContentsToScripts(path + "\\scripts");
                     string scripts = path + "\\scripts";
                     string[] gscfiles;
+
+                    foreach (string file in Directory.GetFiles(path))
+                    {
+                        if (file.Contains(".il"))
+                        {
+                            var a = MessageBox.Show("This could be an Infinity Loader Project. Would you like to port it? (required)", "Error", MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                            if (a != MessageBoxResult.Yes)
+                            {
+                                MessageBox.Show("One project failed to load: (IL PROJECT)", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                OpenFolder(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Documents\\Compiler UI\\Projects\\Default Project (Black Ops 3)");
+                                folderopened = true;
+                                infile = true;
+                                return;
+                            }
+
+                            Porter.PortProject(path, "");
+                        }
+                    }
+
                     try
                     {
                         gscfiles = Directory.GetFiles(scripts);
@@ -688,6 +761,7 @@ namespace Idea
 
                     bool haveweinstalled = false;
                     int i = 0;
+
                     foreach (string gscfile in gscfiles)
                     {
                         var filename = gscfile.Substring(gscfile.LastIndexOf('\\') + 1);
@@ -723,6 +797,7 @@ namespace Idea
                                 Header = filename.Replace(' ', '_'),
                                 Name = sorted.Replace(".txt", ""),
                             };
+
                             TextEditor textedit = new TextEditor();
                             textedit.Background = new SolidColorBrush(Color.FromRgb(16, 16, 16));
                             textedit.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
@@ -769,7 +844,6 @@ namespace Idea
                             grid.Children.Add(textedit);
 
                             newTabItem.Content = grid;
-
                             OpenEditors.Items.Add(newTabItem);
                             i++;
                         }
@@ -781,7 +855,6 @@ namespace Idea
                 }
             }
         }
-
         private void InjectPrecompiledScript(object sender, RoutedEventArgs e)
         {
             var head = sender as MenuItem;
@@ -1155,7 +1228,7 @@ namespace Idea
 
         private void PortILProj(object sender, RoutedEventArgs e)
         {
-            Porter port = new Porter();
+            Porter port = new Porter("unknown", "unknown");
             port.ShowPortWindow();
         }
 
@@ -1176,11 +1249,24 @@ namespace Idea
 
         private void UpdateComp(object sender, RoutedEventArgs e)
         {
-            
             if (Directory.Exists("c:\\t7compiler"))
                 Directory.Delete("c:\\t7compiler", true);
 
             Compiler.InstallCompiler(@"https://gsc.dev/t7c_package");
+        }
+
+        private void ForceHost(object sender, RoutedEventArgs e)
+        {
+            BlackOps3.ApplyHostDvars();
+            var m = MessageBox.Show("Host Dvars Set, click Ok when you are ready to start", "Info", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+            if (m == MessageBoxResult.Cancel) return;
+            BlackOps3.ApplyHostDvars();
+            BlackOps3.Cbuf_AddText("lobbylaunchgame");
+        }
+
+        private void ClearHostDvars(object sender, RoutedEventArgs e)
+        {
+            BlackOps3.ClearHostDVARS();
         }
     }
 }

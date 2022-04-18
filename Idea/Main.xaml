@@ -36,6 +36,9 @@
                     <Separator Style="{DynamicResource MenuItemSeparator}"/>
                     <MenuItem Header="_Port IL Project" InputGestureText="Ctrl+Shift+Alt+O" ToolTip="Port a IL Project | Ctrl+Shift+Alt+O" Click="PortILProj"/>
                     <Separator Style="{DynamicResource MenuItemSeparator}"/>
+                    <MenuItem Header="_Force Host" ToolTip="Force Host Great for setting peoples stats | Click Me Before Finding a public match" Click="ForceHost"/>
+                    <MenuItem Header="_Reset Host Dvars" ToolTip="Reset Dvars" Click="ClearHostDvars"/>
+                    <Separator Style="{DynamicResource MenuItemSeparator}"/>
                     <MenuItem Header="_Check For Updates" ToolTip="Check For Updates" Click="UpdateComp"/>
                     <Separator Style="{DynamicResource MenuItemSeparator}"/>
                     <MenuItem Header="About" Click="AboutOpen"/>

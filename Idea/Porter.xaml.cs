@@ -22,10 +22,26 @@ namespace Idea
     {
         private string _port = "";
         private string _output = "";
-        public Porter()
+
+        public Porter(string input, string output)
         {
             InitializeComponent();
             Topmost = true;
+            _port = input;
+            _output = output;
+
+            try
+            {
+                if (_port != "")
+                        PortPro.Content = "IL Project: " + (string)input.Substring(input.LastIndexOf('\\') + 1);
+
+                if (_output != "")
+                        OutPut.Content = "Output Folder: " + (string)output.Substring(output.LastIndexOf('\\') + 1);
+            }
+            catch
+            {
+
+            }
         }
 
         private void HidePortWindow(object sender, RoutedEventArgs e)
@@ -35,7 +51,7 @@ namespace Idea
 
         public void ShowPortWindow()
         {
-            Porter port = new Porter();
+            Porter port = new Porter("unknown", "unknown");
             port.ShowDialog();
         }
 
@@ -123,18 +139,17 @@ namespace Idea
                 Topmost = true;
             }
         }
-
-        private void PortBegin(object sender, RoutedEventArgs e)
+        private bool Port()
         {
             Topmost = true;
             if (_port == null || _output == null)
-                return;
+                return false;
 
             if (_port.Contains(_output) || _output.Contains(_port))
             {
                 MessageBox.Show("You must select two different folders (Your ouput folder must be different from your import folder/Import folder must be different from your output folder)", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 Topmost = false;
-                return;
+                return false;
             }
 
             string scripts = _output + "\\scripts";
@@ -163,11 +178,22 @@ namespace Idea
             }
 
             File.WriteAllText(_output + "\\gsc.conf", "symbols=bo3,serious,zm");
-            MessageBox.Show("Complete! Project ported sucessfully.", "Sucess", MessageBoxButton.OK, MessageBoxImage.Information);
-            
+
+            var s = MessageBox.Show("Project ported sucessfully.", "Sucess", MessageBoxButton.OK, MessageBoxImage.Information);
+
             _output = "";
             _port = "";
             this.Close();
+            return false; 
+        }
+        private void PortBegin(object sender, RoutedEventArgs e)
+        {
+            Port();
+        }
+
+        public static void PortProject(string input, string output)
+        {
+            new Porter(input, output).ShowDialog();
         }
     }
 }

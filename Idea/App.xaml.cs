@@ -54,7 +54,7 @@ namespace Idea
         private void CloseWindowNOQUIT_Event(object sender, RoutedEventArgs e)
         {
             About about = new About();
-            Porter port = new Porter();
+            Porter port = new Porter(null, null);
             about.Close();
             port.Close();
         }

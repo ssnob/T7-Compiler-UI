@@ -56,12 +56,13 @@ namespace Idea.Actions
                 try { debugcompiler[i].Kill(); } catch { }
 
             Process[] bo3 = Process.GetProcessesByName("blackops3");
-            for (int i = 0; i < debugcompiler.Length; i++)
-                try { debugcompiler[i].Kill(); } catch { }
+            for (int i = 0; i < bo3.Length; i++)
+                try { bo3[i].Kill(); } catch { }
 
             Process[] bo4 = Process.GetProcessesByName("blackops4");
-            for (int i = 0; i < debugcompiler.Length; i++)
-                try { debugcompiler[i].Kill(); } catch { }
+            for (int i = 0; i < bo4.Length; i++)
+                try { bo4[i].Kill(); } catch { }
+
 
             var usertemp = Path.GetTempPath();
             var installertemp = usertemp + "\\installer_temp";
@@ -107,6 +108,7 @@ namespace Idea.Actions
 
             if (!Directory.Exists("c:\\t7compiler"))
             {
+                MessageBox.Show("Compiler Is not installed. Cannot continue", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 

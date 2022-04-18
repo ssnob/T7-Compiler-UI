@@ -15,6 +15,9 @@
     <Compile Update="DropDownMenu.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="FoldDropDwn.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="NewFile.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -27,6 +30,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="DropDownMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="FoldDropDwn.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Main.xaml">
