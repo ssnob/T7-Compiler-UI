@@ -177,7 +177,7 @@ namespace Idea.Actions
         Process proc = Process.Start(startInfo);
         try
         {
-            System.Threading.Thread.Sleep(3760); // if you have a better way of doing this please let me know
+            System.Threading.Thread.Sleep(5760); // will implement async soon
             foreach (var process in Process.GetProcessesByName("debugcompiler"))
             {
                 process.Kill();
