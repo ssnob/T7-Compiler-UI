@@ -444,6 +444,7 @@ namespace Idea
                     textedit.ShowLineNumbers = true;
                     textedit.TextArea.TextEntered += textEditor_TextArea_TextEntered;
                     textedit.Foreground = new SolidColorBrush(Color.FromRgb(225, 225, 225));
+                    textedit.FontFamily = new FontFamily("Consolas");
 
 
                     textedit.Name = filename.Replace(".gsc", null).Replace(".txt", null).Replace(".txt", null).Replace(' ', '_');
@@ -616,7 +617,7 @@ namespace Idea
                         textedit.ShowLineNumbers = true;
                         textedit.TextArea.TextEntered += textEditor_TextArea_TextEntered;
                         textedit.Foreground = new SolidColorBrush(Color.FromRgb(225, 225, 225));
-
+                        textedit.FontFamily = new FontFamily("Consolas");
 
                         textedit.Name = filename.Replace(".gsc", null).Replace(".txt", null).Replace(".txt", null).Replace(' ', '_');
 
@@ -806,7 +807,7 @@ namespace Idea
                             textedit.TextArea.TextEntered += textEditor_TextArea_TextEntered;
                             textedit.Foreground = new SolidColorBrush(Color.FromRgb(225, 225, 225));
 
-
+                            textedit.FontFamily = new FontFamily("Consolas");
                             textedit.Name = filename.Replace(".gsc", null).Replace(".txt", null).Replace(".txt", null).Replace(' ', '_');
 
 

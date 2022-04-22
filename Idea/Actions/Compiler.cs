@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Threading;
 using static Idea.Games.Game;
 
 namespace Idea.Actions
@@ -94,9 +95,13 @@ namespace Idea.Actions
 
             MessageBox.Show("Compiler Updated/Installed", "Sucess", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+        static string _infocheck;
+        static string result__;
+        static bool haveweinjected = false;
         public static void CompileScript(string path, GAMES game, GAMEMODE gamemode, bool folderselected)
         {
-
+            haveweinjected = false;
+            File.WriteAllText(Environment.CurrentDirectory + "\\injection.log", "");
             if (!folderselected)
             {
                 return;
@@ -162,88 +167,100 @@ namespace Idea.Actions
                         return;
                     }
                     break;
+            }
+
+            File.WriteAllText(path + @"\compile.bat", "cd /d " + path.Replace(@"/", @"\") + "\nC:\\t7compiler\\debugcompiler --build");
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+
+
+            startInfo.FileName = path + @"\compile.bat";
+            startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+            string info = "";
+            Process proc = Process.Start(startInfo);
+            proc.OutputDataReceived += Proc_OutputDataReceived;
+
+            proc.BeginOutputReadLine();
+            proc.WaitForExit();
+
+            var finalresult = Regex.Replace(File.ReadAllText(Environment.CurrentDirectory + "\\injection.log"), @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
+
+            if (haveweinjected)
+            {
+                bool bo3found = false;
+                bool bo4found = false;
+
+                var proc1 = Process.GetProcessesByName("blackops3");
+                foreach (var p in proc1)
+                {
+                    if (p.Id > 0)
+                        bo3found = true;
+                }
+
+                var proc2 = Process.GetProcessesByName("blackops4");
+                foreach (var p in proc2)
+                {
+                    if (p.Id > 0)
+                        bo4found = true;
+                }
+
+                if (bo3found)
+                {
+                    WindowHelper.BringProcessToFront(Process.GetProcessesByName("blackops3"));
+                    BlackOps3.Popup($"^2{menu}\n^7Injected Succesfully - ^9{GetGamemode(gamemode)}");
+                }
+
+                if (bo4found)
+                {
+                    WindowHelper.BringProcessToFront(Process.GetProcessesByName("blackops4"));
+                    BlackOps4.Popup($"^2{menu}\n^7Injected Succesfully - ^9{GetGamemode(gamemode)}");
+                }
+
+            }
+            if (!haveweinjected) // :( an error occured
+            {
+                MessageBox.Show(finalresult, "Result", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
 
-        File.WriteAllText(path + @"\compile.bat", "cd /d " + path.Replace(@"/", @"\") + "\nC:\\t7compiler\\debugcompiler --build");
-        ProcessStartInfo startInfo = new ProcessStartInfo();
-
-
-        startInfo.FileName = path + @"\compile.bat";
-        startInfo.UseShellExecute = false;
-        startInfo.RedirectStandardOutput = true;
-        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
-
-        Process proc = Process.Start(startInfo);
-        try
+        private static void Proc_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            System.Threading.Thread.Sleep(5760); // will implement async soon
-            foreach (var process in Process.GetProcessesByName("debugcompiler"))
+            if (e.Data != null)
             {
-                process.Kill();
+                Console.WriteLine(e.Data);
+                _infocheck = e.Data;
+                File.WriteAllText(Environment.CurrentDirectory + "\\injection.log", File.ReadAllText(Environment.CurrentDirectory + "\\injection.log") + e.Data);
+                if (e.Data.Contains("If in game, you are probably going to crash."))
+                {
+                    ProcessEx dbc = "debugcompiler";
+                    dbc.BaseProcess.Kill(); // chiefs kiss
+                    haveweinjected = true;
+                }
             }
         }
-        catch { }
 
-
-        string info = "";
-        info = proc.StandardOutput.ReadToEnd();
-        proc.WaitForExit();
-
-        #region replacespam
-            info = info.Replace(Environment.CurrentDirectory, "");
-            info = info.Replace(path, "");
-            info = info.Replace(">cd /d", "");
-            info = info.Replace(">C:\\t7compiler\\debugcompiler --build", "");
-            info = info.Replace("\\" + new DirectoryInfo(System.IO.Path.GetDirectoryName(path + @"\\")).Name, "");
-            info = info.Replace("Script compiled. Press I to inject or anything else to continue", "");
-            info = info.Replace("compiled.gscc", "");
-            info = info.Replace("Press any key to reset gsc parsetree...", "");
-            info = info.Replace("If in game, you are probaly going to crash...", "");
-            #endregion
-
-
-        var finalresult = Regex.Replace(info, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
-
-        if (finalresult.Contains("If in game, you are probably going to crash.") || finalresult.Contains("_assetPool:ScriptParseTree =>"))
+        private static void Proc_OutputDataReceivedPRECOMPILED(object sender, DataReceivedEventArgs e)
         {
-            bool bo3found = false;
-            bool bo4found = false;
-
-            var proc1 = Process.GetProcessesByName("blackops3");
-            foreach (var p in proc1)
+            if (e.Data != null)
             {
-                if (p.Id > 0)
-                    bo3found = true;
+                Console.WriteLine(e.Data);
+                _infocheck = e.Data;
+                File.WriteAllText(Environment.CurrentDirectory + "\\injection.log", File.ReadAllText(Environment.CurrentDirectory + "\\injection.log") + e.Data);
+                if (e.Data.Contains("Injected"))
+                {
+                    ProcessEx dbc = "debugcompiler";
+                    dbc.BaseProcess.Kill(); // chiefs kiss
+                    haveweinjected = true;
+                }
             }
-
-            var proc2 = Process.GetProcessesByName("blackops4");
-            foreach (var p in proc2)
-            {
-                if (p.Id > 0)
-                    bo4found = true;
-            }
-
-            if (bo3found)
-            {
-                WindowHelper.BringProcessToFront(Process.GetProcessesByName("blackops3"));
-                BlackOps3.Popup($"^2{menu}\n^7Injected Succesfully - ^9{GetGamemode(gamemode)}");
-            }
-
-            if (bo4found)
-            {
-                WindowHelper.BringProcessToFront(Process.GetProcessesByName("blackops4"));
-                BlackOps4.Popup($"^2{menu}\n^7Injected Succesfully - ^9{GetGamemode(gamemode)}");
-            }
-
         }
-        else
-            MessageBox.Show(finalresult, "Result", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
-        Console.WriteLine(info);
-        }
         public static void InjectScript(string path, GAMES game)
         {
+            haveweinjected = false;
+            File.WriteAllText(Environment.CurrentDirectory + "\\injection.log", "");
             if (!Directory.Exists("c:\\t7compiler"))
             {
                 MessageBox.Show("Compiler Is not installed. Cannot continue", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -272,23 +289,16 @@ namespace Idea.Actions
             startInfo.RedirectStandardOutput = true;
             startInfo.Arguments = $"--inject \"{path}\" \"{_game}\" \"{_path}\"";
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
             Process proc = Process.Start(startInfo);
+            proc.OutputDataReceived += Proc_OutputDataReceivedPRECOMPILED;
 
-            try
-            {
-                System.Threading.Thread.Sleep(2560); // if you have a better way of doing this please let me know
-                foreach (var process in Process.GetProcessesByName("debugcompiler"))
-                {
-                    process.Kill();
-                }
-            }
-            catch { }
+            proc.BeginOutputReadLine();
+            proc.WaitForExit();
 
+            var finalresult = Regex.Replace(File.ReadAllText(Environment.CurrentDirectory + "\\injection.log"), @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
 
-            string info = "";
-            info = proc.StandardOutput.ReadToEnd();
-
-            if (info.Contains("Injected") || info.Contains("_assetPool:ScriptParseTree =>"))
+            if (haveweinjected)
             {
                 bool bo3found = false;
                 bool bo4found = false;
@@ -320,7 +330,10 @@ namespace Idea.Actions
                     BlackOps4.Popup($"^7Injected Succesfully - ^9Precompiled Script");
                 }
             }
-            Console.WriteLine(info);
+            else
+            {
+                MessageBox.Show(finalresult, "Result", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
     }
 }
