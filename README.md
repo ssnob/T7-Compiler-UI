@@ -2,7 +2,7 @@
 Ui for serious' compiler 
 
 <p align="center">
-  <img width="460" height="300" src="https://github.com/ssnob/T7-Compiler-UI/blob/main/Idea/Assets/logo.png">
+  <img width="512" height="512" src="https://github.com/ssnob/T7-Compiler-UI/blob/main/Idea/Assets/logo.png">
 </p>
 
 ---
