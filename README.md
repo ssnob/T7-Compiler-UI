@@ -7,10 +7,8 @@ Ui for serious' compiler
 
 ---
 # Compiler
-Compiler made by serious
-##
-https://github.com/shiversoftdev
-##
+Compiler made by serious <br/>
+https://github.com/shiversoftdev <br/>
 https://github.com/shiversoftdev/t7-compiler
 
 # Requirements
