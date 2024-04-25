@@ -1,2 +1,10 @@
 Idea\bin
 Idea\obj
+.vs\*
+External\Obj
+*.cache
+/Idea/bin
+Idea/bin/Release/netcoreapp3.1/Compiler UI.runtimeconfig.json
+/Idea/bin/Release
+/Idea/obj/Release
+/Idea/obj

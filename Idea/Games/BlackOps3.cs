@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using static Idea.Games.BlackOps3.Constants;
 using static System.ExCallThreadType;
+using static System.PEStructures.PE;
 
 namespace Idea.Games
 {
@@ -15,10 +16,9 @@ namespace Idea.Games
     {
         internal static class Constants
         {
-            public const ulong OFF_CBUF_ADDTEXT = 0x20EC8B0;
-            public const ulong OFF_DVAR_SETFROMSTRINGBYNAME = 0x22C7F60;
-            public const ulong OFF_SendUIPopUp = 0x228E940;
-            public const ulong OFF_GetLocalClientNum = 0x20F0220;
+            public static ulong OFF_CBUF_ADDTEXT = 0x20EC010;
+            public static ulong OFF_DVAR_SETFROMSTRINGBYNAME = 0x22C7500;
+            public static ulong OFF_SendUIPopUp = 0x228DEE0;
         }
 
         private static ProcessEx __game;
@@ -38,6 +38,7 @@ namespace Idea.Games
                 if (!__game.Handle)
                 {
                     __game.OpenHandle(ProcessEx.PROCESS_ACCESS, true);
+
                 }
                 return __game;
             }
@@ -56,8 +57,7 @@ namespace Idea.Games
         }
         internal static void Popup(string message)
         {
-            int clientnum = Game.Call<int>(Game[OFF_GetLocalClientNum], 0);
-            Game.Call<VOID>(Game[OFF_SendUIPopUp], clientnum, 0x8, message); // 0x8 == info
+            Game.Call<VOID>(Game[OFF_SendUIPopUp], 0, 0x8, message); // 0x8 == info
         }
         internal static void ApplyHostDvars()
         {
@@ -77,12 +77,6 @@ namespace Idea.Games
             Dvar_SetFromStringByName("lobbyMergeDedicatedEnabled", "1");
             Dvar_SetFromStringByName("lobbyMergeEnabled", "1");
         }
-        internal enum Gamemodes : int
-        {
-            MODE_ZOMBIES = 0x0,
-            MODE_MULTIPLAYER = 0x1,
-            MODE_CAMPAIGN = 0x2,
-        };
     }
 }
 

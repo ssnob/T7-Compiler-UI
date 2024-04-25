@@ -882,6 +882,7 @@ namespace Idea
                     }
                 }
                 else return;
+
                 GAMES _GAME = GAMES.UNKNOWN;
                 switch (_game)
                 {
